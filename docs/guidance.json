@@ -25,7 +25,6 @@
       "items": [
         "Define scope and objectives",
         "Stakeholder mapping & roles",
-        "Risk register and mitigations",
         "Communication plan & cadence"
       ]
     },
@@ -63,16 +62,12 @@
       { "name": "Org Handbook", "href": "https://example.org/handbook" },
       { "name": "Security Baselines", "href": "https://example.org/security-baselines" }
     ],
-    "community": [
-      { "name": "Discussions", "href": "https://github.com/yourorg/general-guidance-portal/discussions" },
-      { "name": "Issues", "href": "https://github.com/yourorg/general-guidance-portal/issues" }
-    ]
   },
   "announcements": [
     { "date": "2026-03-01", "text": "Initial launch of the Guidance Portal" },
     { "date": "2026-03-15", "text": "Added Release Readiness checklist" }
   ],
-  "roadmap": [
+  "timeline": [
     { "quarter": "Q2 2026", "items": ["Add role-based views", "Embed dashboards", "Localization"] },
     { "quarter": "Q3 2026", "items": ["Versioned guidance sets", "Approval workflow"] }
   ]
