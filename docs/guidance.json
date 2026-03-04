@@ -2,10 +2,10 @@
 
   "bestPractices": {
     "security": [
-      "Enable MFA and enforce least privilege access",
-      "Apply security baselines; review exceptions quarterly",
-      "Use conditional access for high-risk workloads",
-      "Encrypt data at rest and in transit"
+      "Something Sophisticated",
+      "About",
+      "security",
+      "Ipsam"
     ],
     "ops": [
       "Document change windows and rollback steps",
