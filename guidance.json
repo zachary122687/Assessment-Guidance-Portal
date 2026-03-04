@@ -1,1 +1,80 @@
+{
 
+  "bestPractices": {
+    "security": [
+      "Enable MFA and enforce least privilege access",
+      "Apply security baselines; review exceptions quarterly",
+      "Use conditional access for high-risk workloads",
+      "Encrypt data at rest and in transit"
+    ],
+    "ops": [
+      "Document change windows and rollback steps",
+      "Automate routine tasks; track success/failure",
+      "Monitor SLOs and define clear escalation paths",
+      "Standardize naming, tagging, and inventory"
+    ],
+    "governance": [
+      "Define ownership and decision rights",
+      "Publish coding/config standards",
+      "Review compliance against policy each release",
+      "Archive and version artifacts for auditability"
+    ]
+  },
+  "checklists": [
+    {
+      "title": "Project Kickoff",
+      "items": [
+        "Define scope and objectives",
+        "Stakeholder mapping & roles",
+        "Risk register and mitigations",
+        "Communication plan & cadence"
+      ]
+    },
+    {
+      "title": "Release Readiness",
+      "items": [
+        "Feature complete and regression tested",
+        "Security review complete",
+        "Docs updated; runbooks ready",
+        "Rollback validated"
+      ]
+    },
+    {
+      "title": "Operational Handover",
+      "items": [
+        "Monitoring and alerts configured",
+        "On-call schedule published",
+        "Access lists reviewed",
+        "Knowledge base updated"
+      ]
+    }
+  ],
+  "templates": [
+    { "name": "Change Plan.docx", "href": "assets/Change-Plan.docx", "desc": "Structured template for planned changes" },
+    { "name": "Risk Register.xlsx", "href": "assets/Risk-Register.xlsx", "desc": "Track risks, owners, and mitigations" },
+    { "name": "Runbook.md", "href": "assets/Runbook.md", "desc": "Operational step-by-step guide" }
+  ],
+  "faq": [
+    { "q": "How do I propose a new guideline?", "a": "Open a GitHub issue or submit a PR with context, rationale, and references." },
+    { "q": "Who approves changes?", "a": "The Guidance team reviews PRs weekly; urgent items can be escalated via email." },
+    { "q": "Can I use these templates as-is?", "a": "Yes, adapt them to your context and note any deviations." }
+  ],
+  "resources": {
+    "docs": [
+      { "name": "Org Handbook", "href": "https://example.org/handbook" },
+      { "name": "Security Baselines", "href": "https://example.org/security-baselines" }
+    ],
+    "community": [
+      { "name": "Discussions", "href": "https://github.com/yourorg/general-guidance-portal/discussions" },
+      { "name": "Issues", "href": "https://github.com/yourorg/general-guidance-portal/issues" }
+    ]
+  },
+  "announcements": [
+    { "date": "2026-03-01", "text": "Initial launch of the Guidance Portal" },
+    { "date": "2026-03-15", "text": "Added Release Readiness checklist" }
+  ],
+  "roadmap": [
+    { "quarter": "Q2 2026", "items": ["Add role-based views", "Embed dashboards", "Localization"] },
+    { "quarter": "Q3 2026", "items": ["Versioned guidance sets", "Approval workflow"] }
+  ]
+}
