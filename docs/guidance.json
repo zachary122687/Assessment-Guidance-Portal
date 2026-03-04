@@ -1,23 +1,22 @@
 {
 
   "bestPractices": {
-    "security": [
+    "Assessment Schedule": [
+      "Current",
+      "Assessment",
+      "schedule"
+    ],
+    "ops": [
       "Something Sophisticated",
       "About",
       "security",
-      "Ipsam"
-    ],
-    "ops": [
-      "Document change windows and rollback steps",
-      "Automate routine tasks; track success/failure",
-      "Monitor SLOs and define clear escalation paths",
-      "Standardize naming, tagging, and inventory"
+      "Ipsam
     ],
     "governance": [
-      "Define ownership and decision rights",
-      "Publish coding/config standards",
-      "Review compliance against policy each release",
-      "Archive and version artifacts for auditability"
+      "Something Sophisticated",
+      "About",
+      "governance",
+      "Ipsam
     ]
   },
   "checklists": [
