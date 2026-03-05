@@ -30,7 +30,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // Data-driven content
 async function loadData() {
   try {
-    const res = await fetch('data/guidance.json');
+    const res = await fetch('guidance.json');
     const data = await res.json();
 
     // Best practices
