@@ -31,12 +31,12 @@ async function loadData() {
     const res = await fetch('guidance.json');
     const data = await res.json();
 
-    // Best practices / Important Documents
-    for (const [key, items] of Object.entries(data.bestPractices)) {
-      const ul = document.getElementById(`bp-${key}`);
-      if (!ul) continue;
-      ul.innerHTML = items.map(i => `<li>${i}</li>`).join('');
-    }
+    // Important Documents
+for (const [key, items] of Object.entries(data.importantDocuments || {})) {
+  const ul = document.getElementById(`bp-${key}`);
+  if (!ul) continue;
+  ul.innerHTML = items.map(i => `<li>${i}</li>`).join('');
+}
 
     // Checklists
     const cl = document.getElementById('checklistCards');
