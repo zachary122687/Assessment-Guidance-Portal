@@ -45,28 +45,29 @@
     }
   ],
   "templates": [
-    { "name": "Change Plan.docx", "href": "assets/Change-Plan.docx", "desc": "Structured template for planned changes" },
-    { "name": "Risk Register.xlsx", "href": "assets/Risk-Register.xlsx", "desc": "Track risks, owners, and mitigations" },
-    { "name": "Runbook.md", "href": "assets/Runbook.md", "desc": "Operational step-by-step guide" }
+    { "name": "Template1.docx", "href": "assets/Template1.docx", "desc": "Description for Template1 document." },
+    { "name": "Template2.docx", "href": "assets/Template2.docx", "desc": "Description for Template1 document." },
+    { "name": "SelfAssessmentWorkbook.xlsx", "href": "assets/SelfAssessmentWorkbook.xlsx", "desc": "Description for SelfAssessmentWorkbook.xlsx" }
   ],
   "faq": [
-    { "q": "How do I propose a new guideline?", "a": "Open a GitHub issue or submit a PR with context, rationale, and references." },
-    { "q": "Who approves changes?", "a": "The Guidance team reviews PRs weekly; urgent items can be escalated via email." },
-    { "q": "Can I use these templates as-is?", "a": "Yes, adapt them to your context and note any deviations." }
+    { "q": "Question # 1", "a": "Answer to question 1." },
+    { "q": "Question # 2", "a": "Answer to question 2." },
+    { "q": "Question # 3", "a": "Answer to question 3." }
   ],
   "resources": {
     "docs": [
-      { "name": "Org Handbook", "href": "https://example.org/handbook" },
-      { "name": "Security Baselines", "href": "https://example.org/security-baselines" }
+      { "name": "Statewide Policy", "href": "https://example.org/handbook" },
+      { "name": " Others?", "href": "https://example.org/others" }
     ],
     "links": [
-      { "name": "Community Forum", "href": "https://community.example.org" },
-      { "name": "Security Dashboard", "href": "https://dashboard.example.org" }
+      { "name": "Center for Internet Security Control Assessment Specifications", "href": "https://example.org" },
+      { "name": "GitHub KQL", "href": "https://kql.scripts" },
+      { "name": "Others?", "href": "https://example.org" }
     ]
   },
   "announcements": [
-    { "date": "2026-03-01", "text": "Initial launch of the Guidance Portal" },
-    { "date": "2026-03-15", "text": "Added Release Readiness checklist" }
+    { "date": "2026-04-01", "text": "Initial launch of the Guidance Portal" },
+    { "date": "2026-04-15", "text": "Added Release Readiness checklist" }
   ],
   "roadmap": [
     { "quarter": "Q2 2026", "items": ["Add role-based views", "Embed dashboards", "Localization"] },
