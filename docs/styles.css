@@ -72,7 +72,7 @@ body {
    Hero Image
 ========================= */
 .hero {
-  background-image: url("../globe-header.jpg"); /* Adjust path if HTML in a subfolder */
+  background-image: url("globe-header.jpg"); /* Image at same level as HTML */
   background-size: cover;
   background-position: center;
   height: 140px;
@@ -96,14 +96,14 @@ body {
 .sidebar a {
   display: block;
   padding: 8px;
-  color: var(--primary-blue); /* Keep hyperlinks blue */
+  color: var(--primary-blue); /* Links stay blue */
   text-decoration: underline;
   border-radius: 6px;
 }
 
 .sidebar a:hover {
+  color: #40c0bd; /* Optional hover */
   background: rgba(64, 192, 189, 0.1);
-  color: var(--primary-blue);
 }
 
 /* =========================
@@ -130,8 +130,12 @@ body {
   color: var(--primary-dark);
 }
 
+.card p {
+  color: var(--text);
+}
+
 .card a {
-  color: var(--primary-blue);
+  color: var(--primary-blue); /* Links remain blue */
   text-decoration: underline;
 }
 
@@ -218,8 +222,8 @@ body {
 [data-theme="dark"] {
   --bg: #1a1a1a;
   --card: #242424;
-  --text: #f0f0f0;
-  --muted: #cfcfcf;
+  --text: #ffffff;      /* WHITE text for all */
+  --muted: #ffffff;     /* WHITE muted text */
   --border: #444444;
 }
 
@@ -237,10 +241,10 @@ body {
 [data-theme="dark"] .card p,
 [data-theme="dark"] .sidebar h3,
 [data-theme="dark"] .topbar {
-  color: var(--text);
+  color: var(--text); /* Ensure headings and paragraphs are white */
 }
 
-/* Keep links blue even in dark mode */
+/* Keep hyperlinks blue in dark mode */
 [data-theme="dark"] .card a,
 [data-theme="dark"] .sidebar a {
   color: #1870a3;
