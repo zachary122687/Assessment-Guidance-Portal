@@ -1,5 +1,5 @@
 :root {
-  /* Default (light) theme variables */
+  /* EIS Official Colors */
   --primary-dark: #203864;
   --primary-blue: #1870a3;
   --accent-teal: #40c0bd;
@@ -7,24 +7,7 @@
   --accent-orange: #faa933;
   --accent-red: #f0516c;
 
-  --bg: #f4f7fb;
-  --card: #ffffff;
-  --text: #1a1a1a;
-  --muted: #5a5a5a;
-  --border: #d9e1ec;
-}
-
-/* Dark theme */
-:root[data-theme="dark"] {
-  --bg: #1b1b1b;
-  --card: #2a2a2a;
-  --text: #f0f0f0;
-  --muted: #999999;
-  --border: #444444;
-}
-
-/* Light theme overrides (optional, explicit) */
-:root[data-theme="light"] {
+  /* Light Mode Defaults */
   --bg: #f4f7fb;
   --card: #ffffff;
   --text: #1a1a1a;
@@ -101,14 +84,15 @@ body {
 .sidebar a {
   display: block;
   padding: 8px;
-  color: var(--primary-dark);
+  color: var(--text);
   text-decoration: none;
   border-radius: 6px;
+  transition: all 0.2s;
 }
 
 .sidebar a:hover {
   background: var(--accent-teal);
-  color: white;
+  color: #fff;
 }
 
 /* CONTENT */
@@ -125,10 +109,25 @@ body {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
+  color: var(--text);
 }
 
-.card h2 {
-  color: var(--primary-dark);
+.card h2,
+.card h3,
+.card p,
+.card li,
+.card a,
+.card summary {
+  color: var(--text);
+}
+
+.card a {
+  text-decoration: underline;
+}
+
+.card ul,
+.card ol {
+  padding-left: 20px;
 }
 
 /* BUTTONS */
@@ -139,10 +138,43 @@ body {
   background: var(--primary-blue);
   color: white;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn:hover {
   background: var(--primary-dark);
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.tab {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text);
+}
+
+.tab.active {
+  background: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+
+/* TAB PANELS */
+.tab-panels .panel {
+  display: none;
+}
+
+.tab-panels .panel.active {
+  display: block;
 }
 
 /* STATUS COLORS */
@@ -173,37 +205,18 @@ body {
   margin-top: 10px;
 }
 
-/* TABS */
-.tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.tab {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  cursor: pointer;
-}
-
-.tab.active {
-  background: var(--primary-blue);
-  color: white;
-  border-color: var(--primary-blue);
-}
-
-.tab-panels .panel {
-  display: none;
-}
-
-.tab-panels .panel.active {
-  display: block;
+/* DARK MODE SUPPORT */
+/* JS will overwrite the variables when toggling theme */
+[data-theme="dark"] {
+  --bg: #121212;
+  --card: #1e1e1e;
+  --text: #ffffff;
+  --muted: #cccccc;
+  --border: #333333;
 }
 
 /* RESPONSIVE */
-@media (max-width:900px) {
+@media (max-width: 900px) {
   body {
     grid-template-columns: 1fr;
     grid-template-areas:
