@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
   <title>Cybersecurity Assessment Guidance Portal</title>
   <meta name="description" content="General guidance hub." />
 </head>
@@ -17,7 +17,7 @@
       src="../eis-logo.png"
       class="header-logo"
       alt="Enterprise Information Services logo"
-    >
+    />
     <div class="header-title">
       Cyber Security Services – Assessment Guidance Portal
     </div>
@@ -28,12 +28,14 @@
         id="searchInput"
         type="search"
         placeholder="Search guidance..."
-        aria-label="Search guidance portal">
+        aria-label="Search guidance portal"
+      />
     </div>
     <button
       class="btn outline"
       id="themeToggle"
-      aria-label="Toggle theme">
+      aria-label="Toggle theme"
+    >
       🌙
     </button>
   </nav>
@@ -88,6 +90,12 @@
     </div>
   </section>
 
+  <!-- Checklists (optional container if needed) -->
+  <section id="checklists" class="card" style="display:none;">
+    <h2>Checklists</h2>
+    <div id="checklistCards"></div>
+  </section>
+
   <!-- Templates Section -->
   <section id="templates" class="card">
     <h2>Templates</h2>
@@ -138,126 +146,13 @@
     src="../cyber-command-seal.png"
     class="footer-seal"
     alt="State Cyber Command Seal"
-  >
+  />
 
   <small>© <span id="year"></span> Managed by the Cybersecurity Assessment Team</small>
 </footer>
 
 <!-- JavaScript -->
-<script>
-  // Theme toggle
-  const root = document.documentElement;
-  const toggle = document.getElementById('themeToggle');
-
-  toggle?.addEventListener('click', () => {
-    const isDark = root.dataset.theme !== 'light';
-    root.dataset.theme = isDark ? 'light' : 'dark';
-
-    const light = {
-      '--bg': '#f7f8fb',
-      '--card': '#ffffff',
-      '--text': '#1b2130',
-      '--muted': '#5e6a7e',
-      '--border': '#e3e7ee'
-    };
-
-    if (isDark)
-      Object.entries(light).forEach(([k,v]) => root.style.setProperty(k, v));
-    else
-      Object.keys(light).forEach(k => root.style.removeProperty(k));
-  });
-
-  // Tabs
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const current = tab.dataset.tab;
-      document.querySelectorAll('.tab')
-        .forEach(t => t.classList.toggle('active', t === tab));
-      document.querySelectorAll('.panel')
-        .forEach(p => p.classList.toggle('active', p.id === `panel-${current}`));
-    });
-  });
-
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Load JSON data
-  async function loadData() {
-    try {
-      const res = await fetch('guidance.json');
-      const data = await res.json();
-
-      // Important Documents
-      for (const [key, items] of Object.entries(data.importantDocuments || {})) {
-        const ul = document.getElementById(`bp-${key}`);
-        if (!ul) continue;
-        ul.innerHTML = items.map(i => `<li>${i}</li>`).join('');
-      }
-
-      // Checklists
-      const cl = document.getElementById('checklistCards');
-      if (cl && data.checklists)
-        cl.innerHTML = data.checklists.map(list => `
-          <div class="tile">
-            <h3>${list.title}</h3>
-            <ul>${list.items.map(i => `<li>${i}</li>`).join('')}</ul>
-          </div>
-        `).join('');
-
-      // Templates
-      const tl = document.getElementById('templateList');
-      if (tl && data.templates)
-        tl.innerHTML = data.templates.map(t => `
-          <li><a href="${t.href}">${t.name}</a> — <span>${t.desc}</span></li>
-        `).join('');
-
-      // FAQ
-      const faq = document.getElementById('faqList');
-      if (faq && data.faq)
-        faq.innerHTML = data.faq.map(q => `
-          <details>
-            <summary>${q.q}</summary>
-            <p>${q.a}</p>
-          </details>
-        `).join('');
-
-      // Resources
-      const rDocs = document.getElementById('resourceDocs');
-      const rLinks = document.getElementById('resourceLinks');
-      if (data.resources) {
-        if (rDocs && data.resources.docs)
-          rDocs.innerHTML = data.resources.docs.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join('');
-        if (rLinks && data.resources.links)
-          rLinks.innerHTML = data.resources.links.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join('');
-      }
-
-      // Announcements
-      const ann = document.getElementById('announcementsList');
-      if (ann && data.announcements)
-        ann.innerHTML = data.announcements.map(a => `<li><strong>${a.date}</strong> — ${a.text}</li>`).join('');
-
-      // Roadmap
-      const roadmap = document.getElementById('roadmapList');
-      if (roadmap && data.timeline)
-        roadmap.innerHTML = data.timeline.map(r => `<li><strong>${r.quarter}</strong>: ${r.items.join(', ')}</li>`).join('');
-
-    } catch (e) {
-      console.error('Failed to load guidance.json:', e);
-    }
-  }
-
-  loadData();
-
-  // Client-side search
-  const searchInput = document.getElementById('searchInput');
-  searchInput?.addEventListener('input', (e) => {
-    const q = (e.target.value || '').toLowerCase();
-    document.querySelectorAll('.card').forEach(card => {
-      const text = card.innerText.toLowerCase();
-      card.style.display = text.includes(q) ? '' : 'none';
-    });
-  });
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
