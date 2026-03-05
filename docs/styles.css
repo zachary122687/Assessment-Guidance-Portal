@@ -199,6 +199,7 @@ body {
   border: 1px solid var(--border);
   background: var(--card);
   cursor: pointer;
+  color: var(--text); /* default tab text color */
 }
 
 .tab.active {
@@ -252,6 +253,19 @@ body {
 [data-theme="dark"] .card a,
 [data-theme="dark"] .sidebar a {
   color: #1870a3;
+}
+
+/* Dark mode tabs */
+[data-theme="dark"] .tab {
+  background-color: #333;
+  border-color: #555;
+  color: white; /* white text for inactive tabs */
+}
+
+[data-theme="dark"] .tab.active {
+  background-color: var(--primary-blue);
+  border-color: var(--primary-blue);
+  color: white;
 }
 
 /* =========================
