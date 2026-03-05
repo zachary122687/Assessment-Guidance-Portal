@@ -2,30 +2,23 @@
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 
+if (!root.dataset.theme) root.dataset.theme = 'light'; // default
+
 toggle?.addEventListener('click', () => {
-  const isDark = root.dataset.theme !== 'light';
-  root.dataset.theme = isDark ? 'light' : 'dark';
-
-  const light = {
-    '--bg': '#f7f8fb',
-    '--card': '#ffffff',
-    '--text': '#1b2130',
-    '--muted': '#5e6a7e',
-    '--border': '#e3e7ee'
-  };
-
-  if (isDark) Object.entries(light).forEach(([k,v]) => root.style.setProperty(k, v));
-  else Object.keys(light).forEach(k => root.style.removeProperty(k));
+  const newTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = newTheme;
+  toggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
 });
 
 // Tabs
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const current = tab.dataset.tab;
-    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
-    document.querySelectorAll('.panel').forEach(p => {
-      p.classList.toggle('active', p.id === `panel-${current}`);
-    });
+    document.querySelectorAll('.tab')
+      .forEach(t => t.classList.toggle('active', t === tab));
+
+    document.querySelectorAll('.panel')
+      .forEach(p => p.classList.toggle('active', p.id === `panel-${current}`));
   });
 });
 
@@ -38,14 +31,12 @@ async function loadData() {
     const res = await fetch('guidance.json');
     const data = await res.json();
 
-    // Important Documents
-    const docKeys = ['schedule', 'request', 'collector'];
-    docKeys.forEach(key => {
+    // Best practices / Important Documents
+    for (const [key, items] of Object.entries(data.bestPractices)) {
       const ul = document.getElementById(`bp-${key}`);
-      if (!ul) return;
-      const items = data.importantDocuments?.[key] || [];
+      if (!ul) continue;
       ul.innerHTML = items.map(i => `<li>${i}</li>`).join('');
-    });
+    }
 
     // Checklists
     const cl = document.getElementById('checklistCards');
@@ -59,14 +50,14 @@ async function loadData() {
 
     // Templates
     const tl = document.getElementById('templateList');
-    if (tl && data.templates)
+    if (tl)
       tl.innerHTML = data.templates.map(t => `
         <li><a href="${t.href}" target="_blank">${t.name}</a> — <span>${t.desc}</span></li>
       `).join('');
 
     // FAQ
     const faq = document.getElementById('faqList');
-    if (faq && data.faq)
+    if (faq)
       faq.innerHTML = data.faq.map(q => `
         <details>
           <summary>${q.q}</summary>
@@ -76,24 +67,20 @@ async function loadData() {
 
     // Resources
     if (data.resources) {
-      const docsEl = document.getElementById('resourceDocs');
-      if (docsEl)
-        docsEl.innerHTML = data.resources.docs.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join('');
-
-      const linksEl = document.getElementById('resourceLinks');
-      if (linksEl)
-        linksEl.innerHTML = data.resources.links.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join('');
+      const docs = document.getElementById('resourceDocs');
+      if (docs)
+        docs.innerHTML = data.resources.docs.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join('');
     }
 
     // Announcements
     const ann = document.getElementById('announcementsList');
-    if (ann && data.announcements)
+    if (ann)
       ann.innerHTML = data.announcements.map(a => `<li><strong>${a.date}</strong> — ${a.text}</li>`).join('');
 
     // Roadmap
     const rm = document.getElementById('roadmapList');
-    if (rm && data.roadmap)
-      rm.innerHTML = data.roadmap.map(r => `<li><strong>${r.quarter}</strong>: ${r.items.join(', ')}</li>`).join('');
+    if (rm)
+      rm.innerHTML = data.timeline.map(r => `<li><strong>${r.quarter}</strong>: ${r.items.join(', ')}</li>`).join('');
 
   } catch (e) {
     console.error('Failed to load guidance.json:', e);
@@ -102,7 +89,7 @@ async function loadData() {
 
 loadData();
 
-// Client-side search
+// Search functionality
 const searchInput = document.getElementById('searchInput');
 searchInput?.addEventListener('input', (e) => {
   const q = (e.target.value || '').toLowerCase();
