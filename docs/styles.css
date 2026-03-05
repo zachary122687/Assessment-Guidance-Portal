@@ -1,5 +1,8 @@
+/* =========================
+   Root Variables & Colors
+========================= */
 :root {
-  /* EIS Official Colors */
+  /* Official EIS Colors */
   --primary-dark: #203864;
   --primary-blue: #1870a3;
   --accent-teal: #40c0bd;
@@ -7,7 +10,7 @@
   --accent-orange: #faa933;
   --accent-red: #f0516c;
 
-  /* Light Mode Defaults */
+  /* Light Theme Defaults */
   --bg: #f4f7fb;
   --card: #ffffff;
   --text: #1a1a1a;
@@ -15,6 +18,9 @@
   --border: #d9e1ec;
 }
 
+/* =========================
+   Global Styles
+========================= */
 * {
   box-sizing: border-box;
 }
@@ -34,7 +40,9 @@ body {
     "footer footer";
 }
 
-/* HEADER */
+/* =========================
+   Header / Topbar
+========================= */
 .topbar {
   grid-area: topbar;
   display: flex;
@@ -60,7 +68,9 @@ body {
   font-weight: 600;
 }
 
-/* HEADER IMAGE */
+/* =========================
+   Hero Image
+========================= */
 .hero {
   background-image: url("images/globe-header.jpg");
   background-size: cover;
@@ -69,7 +79,9 @@ body {
   border-bottom: 3px solid var(--primary-blue);
 }
 
-/* SIDEBAR */
+/* =========================
+   Sidebar
+========================= */
 .sidebar {
   grid-area: sidebar;
   padding: 20px;
@@ -84,18 +96,19 @@ body {
 .sidebar a {
   display: block;
   padding: 8px;
-  color: var(--text);
-  text-decoration: none;
+  color: var(--primary-blue); /* Links stay blue */
+  text-decoration: underline;
   border-radius: 6px;
-  transition: all 0.2s;
 }
 
 .sidebar a:hover {
-  background: var(--accent-teal);
-  color: #fff;
+  color: #40c0bd; /* Optional hover */
+  background: rgba(64, 192, 189, 0.1);
 }
 
-/* CONTENT */
+/* =========================
+   Main Content
+========================= */
 .content {
   grid-area: content;
   padding: 30px;
@@ -103,34 +116,32 @@ body {
   gap: 20px;
 }
 
-/* CARDS */
+/* =========================
+   Cards
+========================= */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
-  color: var(--text);
 }
 
-.card h2,
-.card h3,
-.card p,
-.card li,
-.card a,
-.card summary {
-  color: var(--text);
+.card h2 {
+  color: var(--primary-dark);
 }
 
 .card a {
+  color: var(--primary-blue); /* Links remain blue */
   text-decoration: underline;
 }
 
-.card ul,
-.card ol {
-  padding-left: 20px;
+.card a:hover {
+  color: #40c0bd;
 }
 
-/* BUTTONS */
+/* =========================
+   Buttons
+========================= */
 .btn {
   padding: 10px 14px;
   border-radius: 6px;
@@ -138,14 +149,38 @@ body {
   background: var(--primary-blue);
   color: white;
   cursor: pointer;
-  transition: all 0.2s;
 }
 
 .btn:hover {
   background: var(--primary-dark);
 }
 
-/* TABS */
+/* =========================
+   Status Colors
+========================= */
+.status.ok { color: var(--accent-green); }
+.status.warn { color: var(--accent-orange); }
+.status.pending { color: var(--primary-blue); }
+
+/* =========================
+   Footer
+========================= */
+.footer {
+  grid-area: footer;
+  background: var(--primary-dark);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer-seal {
+  height: 80px;
+  margin-top: 10px;
+}
+
+/* =========================
+   Tabs
+========================= */
 .tabs {
   display: flex;
   gap: 10px;
@@ -158,8 +193,6 @@ body {
   border: 1px solid var(--border);
   background: var(--card);
   cursor: pointer;
-  transition: all 0.2s;
-  color: var(--text);
 }
 
 .tab.active {
@@ -168,54 +201,47 @@ body {
   border-color: var(--primary-blue);
 }
 
-/* TAB PANELS */
-.tab-panels .panel {
+/* =========================
+   Panels
+========================= */
+.panel {
   display: none;
 }
 
-.tab-panels .panel.active {
+.panel.active {
   display: block;
 }
 
-/* STATUS COLORS */
-.status.ok {
-  color: var(--accent-green);
-}
-
-.status.warn {
-  color: var(--accent-orange);
-}
-
-.status.pending {
-  color: var(--primary-blue);
-}
-
-/* FOOTER */
-.footer {
-  grid-area: footer;
-  background: var(--primary-dark);
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-/* SEAL */
-.footer-seal {
-  height: 80px;
-  margin-top: 10px;
-}
-
-/* DARK MODE SUPPORT */
-/* JS will overwrite the variables when toggling theme */
+/* =========================
+   Dark Mode Styles
+========================= */
 [data-theme="dark"] {
-  --bg: #121212;
-  --card: #1e1e1e;
-  --text: #ffffff;
-  --muted: #cccccc;
-  --border: #333333;
+  --bg: #1a1a1a;
+  --card: #242424;
+  --text: #f0f0f0;
+  --muted: #cfcfcf;
+  --border: #444444;
 }
 
-/* RESPONSIVE */
+/* Explicit overrides to maintain readability in dark mode */
+[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+[data-theme="dark"] .card {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .card a,
+[data-theme="dark"] .sidebar a {
+  color: #1870a3; /* keep hyperlinks blue in dark mode */
+}
+
+/* =========================
+   Responsive
+========================= */
 @media (max-width: 900px) {
   body {
     grid-template-columns: 1fr;
@@ -224,6 +250,7 @@ body {
       "content"
       "footer";
   }
+
   .sidebar {
     display: none;
   }
