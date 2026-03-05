@@ -1,13 +1,19 @@
 // Theme toggle
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
+
 toggle?.addEventListener('click', () => {
   const isDark = root.dataset.theme !== 'light';
   root.dataset.theme = isDark ? 'light' : 'dark';
+
   const light = {
-    '--bg': '#f7f8fb', '--card': '#ffffff', '--text': '#1b2130',
-    '--muted': '#5e6a7e', '--border': '#e3e7ee'
+    '--bg': '#f7f8fb',
+    '--card': '#ffffff',
+    '--text': '#1b2130',
+    '--muted': '#5e6a7e',
+    '--border': '#e3e7ee'
   };
+
   if (isDark) Object.entries(light).forEach(([k,v]) => root.style.setProperty(k, v));
   else Object.keys(light).forEach(k => root.style.removeProperty(k));
 });
@@ -18,8 +24,7 @@ document.querySelectorAll('.tab').forEach(tab => {
     const current = tab.dataset.tab;
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
     document.querySelectorAll('.panel').forEach(p => {
-      const is = p.id === `panel-${current}`;
-      p.classList.toggle('active', is);
+      p.classList.toggle('active', p.id === `panel-${current}`);
     });
   });
 });
@@ -27,70 +32,81 @@ document.querySelectorAll('.tab').forEach(tab => {
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Data-driven content
+// Load JSON data
 async function loadData() {
   try {
     const res = await fetch('guidance.json');
     const data = await res.json();
 
-    // Best practices
-    for (const [key, items] of Object.entries(data.bestPractices)) {
+    // Important Documents
+    const docKeys = ['schedule', 'request', 'collector'];
+    docKeys.forEach(key => {
       const ul = document.getElementById(`bp-${key}`);
-      if (!ul) continue;
+      if (!ul) return;
+      const items = data.importantDocuments?.[key] || [];
       ul.innerHTML = items.map(i => `<li>${i}</li>`).join('');
-    }
+    });
 
     // Checklists
     const cl = document.getElementById('checklistCards');
-    cl.innerHTML = data.checklists.map(list => `
-      <div class="tile">
-        <h3>${list.title}</h3>
-        <ul>${list.items.map(i => `<li>${i}</li>`).join('')}</ul>
-      </div>
-    `).join('');
+    if (cl && data.checklists)
+      cl.innerHTML = data.checklists.map(list => `
+        <div class="tile">
+          <h3>${list.title}</h3>
+          <ul>${list.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+      `).join('');
 
     // Templates
     const tl = document.getElementById('templateList');
-    tl.innerHTML = data.templates.map(t => `
-      <li><a href="${t.name}</a> — <span>${t.desc}</span></li>
-    `).join('');
+    if (tl && data.templates)
+      tl.innerHTML = data.templates.map(t => `
+        <li><a href="${t.href}" target="_blank">${t.name}</a> — <span>${t.desc}</span></li>
+      `).join('');
 
     // FAQ
     const faq = document.getElementById('faqList');
-    faq.innerHTML = data.faq.map(q => `
-      <details>
-        <summary>${q.q}</summary>
-        <p>${q.a}</p>
-      </details>
-    `).join('');
+    if (faq && data.faq)
+      faq.innerHTML = data.faq.map(q => `
+        <details>
+          <summary>${q.q}</summary>
+          <p>${q.a}</p>
+        </details>
+      `).join('');
 
     // Resources
-    document.getElementById('resourceDocs').innerHTML =
-      data.resources.docs.map(r => `<li><a href="${r.href}" target>`).join('');
-    document.getElementById('resourceCommunity').innerHTML =
-      data.resources.community.map(r => `<li><{r.href}${r.name}</a></li>`).join('');
+    if (data.resources) {
+      const docsEl = document.getElementById('resourceDocs');
+      if (docsEl)
+        docsEl.innerHTML = data.resources.docs.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join('');
+
+      const linksEl = document.getElementById('resourceLinks');
+      if (linksEl)
+        linksEl.innerHTML = data.resources.links.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join('');
+    }
 
     // Announcements
-    document.getElementById('announcementsList').innerHTML =
-      data.announcements.map(a => `<li><strong>${a.date}</strong> — ${a.text}</li>`).join('');
+    const ann = document.getElementById('announcementsList');
+    if (ann && data.announcements)
+      ann.innerHTML = data.announcements.map(a => `<li><strong>${a.date}</strong> — ${a.text}</li>`).join('');
 
     // Roadmap
-    document.getElementById('roadmapList').innerHTML =
-      data.roadmap.map(r => `<li><strong>${r.quarter}</strong>: ${r.items.join(', ')}</li>`).join('');
+    const rm = document.getElementById('roadmapList');
+    if (rm && data.roadmap)
+      rm.innerHTML = data.roadmap.map(r => `<li><strong>${r.quarter}</strong>: ${r.items.join(', ')}</li>`).join('');
+
   } catch (e) {
     console.error('Failed to load guidance.json:', e);
   }
 }
+
 loadData();
 
 // Client-side search
 const searchInput = document.getElementById('searchInput');
 searchInput?.addEventListener('input', (e) => {
   const q = (e.target.value || '').toLowerCase();
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-
-    // Match in headings or list items within the card
+  document.querySelectorAll('.card').forEach(card => {
     const text = card.innerText.toLowerCase();
     card.style.display = text.includes(q) ? '' : 'none';
   });
