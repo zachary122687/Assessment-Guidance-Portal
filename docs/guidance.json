@@ -1,22 +1,19 @@
 {
-
-  "bestPractices": {
-    "Assessment Schedule": [
+  "importantDocuments": {
+    "schedule": [
       "Current",
       "Assessment",
-      "schedule"
+      "Schedule"
     ],
-    "topic2": [
-      "Something Sophisticated",
-      "About",
-      "security",
-      "Ipsam"
+    "request": [
+      "Artifact Request Form",
+      "Submission Guidelines",
+      "Required Approvals"
     ],
-    "topic3": [
-      "Something Sophisticated",
-      "About",
-      "governance",
-      "Ipsam"
+    "collector": [
+      "Artifact Collector",
+      "Collection Procedures",
+      "Data Retention Rules"
     ]
   },
   "checklists": [
@@ -62,12 +59,16 @@
       { "name": "Org Handbook", "href": "https://example.org/handbook" },
       { "name": "Security Baselines", "href": "https://example.org/security-baselines" }
     ],
+    "links": [
+      { "name": "Community Forum", "href": "https://community.example.org" },
+      { "name": "Security Dashboard", "href": "https://dashboard.example.org" }
+    ]
   },
   "announcements": [
     { "date": "2026-03-01", "text": "Initial launch of the Guidance Portal" },
     { "date": "2026-03-15", "text": "Added Release Readiness checklist" }
   ],
-  "timeline": [
+  "roadmap": [
     { "quarter": "Q2 2026", "items": ["Add role-based views", "Embed dashboards", "Localization"] },
     { "quarter": "Q3 2026", "items": ["Versioned guidance sets", "Approval workflow"] }
   ]
