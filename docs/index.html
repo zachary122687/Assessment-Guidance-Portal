@@ -38,90 +38,98 @@
     </button>
   </nav>
 </header>
+
 <!-- Globe Header Image -->
 <div class="hero"></div>
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h3>Navigation</h3>
-    <ul>
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#important-documents">Important Documents</a></li>
-      <li><a href="#templates">Templates</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#resources">Resources</a></li>
-    </ul>
-  </aside>
 
-  <!-- Main Content -->
-  <main class="content">
+<!-- Sidebar -->
+<aside class="sidebar">
+  <h3>Navigation</h3>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#important-documents">Important Documents</a></li>
+    <li><a href="#templates">Templates</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</aside>
 
-    <section id="overview" class="card">
-      <h2>Overview</h2>
-      <p>Welcome to the Cybersecurity Assessment Guidance Portal.</p>
-    </section>
+<!-- Main Content -->
+<main class="content">
 
-    <section id="best-practices" class="card">
-      <h2>Best Practices</h2>
+  <!-- Overview Section -->
+  <section id="overview" class="card">
+    <h2>Overview</h2>
+    <p>Welcome to the Cybersecurity Assessment Guidance Portal.</p>
+  </section>
 
-      <div class="tabs">
-  <button class="tab active" data-tab="security">Assessment Schedule</button>
-  <button class="tab" data-tab="topic2">Important Topic 2</button>
-  <button class="tab" data-tab="topic3">Important Topic 3</button>
-</div>
+  <!-- Important Documents Section -->
+  <section id="important-documents" class="card">
+    <h2>Important Documents</h2>
 
-<div class="tab-panels">
-  <div class="panel active" id="panel-security">
-    <ul id="bp-security"></ul>
-  </div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="schedule">Assessment Schedule</button>
+      <button class="tab" data-tab="request">Artifact Request Form</button>
+      <button class="tab" data-tab="collector">Artifact Collector</button>
+    </div>
 
-  <div class="panel" id="panel-topic2">
-    <ul id="bp-topic2"></ul>
-  </div>
+    <!-- Tab Panels -->
+    <div class="tab-panels">
+      <div class="panel active" id="panel-schedule">
+        <ul id="bp-schedule"></ul>
+      </div>
+      <div class="panel" id="panel-request">
+        <ul id="bp-request"></ul>
+      </div>
+      <div class="panel" id="panel-collector">
+        <ul id="bp-collector"></ul>
+      </div>
+    </div>
+  </section>
 
-  <div class="panel" id="panel-topic3">
-    <ul id="bp-topic3"></ul>
-  </div>
-</div>
-</section>
+  <!-- Templates Section -->
+  <section id="templates" class="card">
+    <h2>Templates</h2>
+    <ul id="templateList"></ul>
+  </section>
 
-    <section id="templates" class="card">
-      <h2>Templates</h2>
-      <ul id="templateList"></ul>
-    </section>
+  <!-- FAQ Section -->
+  <section id="faq" class="card">
+    <h2>FAQ</h2>
+    <div id="faqList"></div>
+  </section>
 
-    <section id="faq" class="card">
-      <h2>FAQ</h2>
-      <div id="faqList"></div>
-    </section>
-
-    <section id="resources" class="card">
+  <!-- Resources Section -->
+  <section id="resources" class="card">
     <h2>Resources</h2>
-
     <div class="grid two">
-    <div>
-      <h3>Docs</h3>
-      <ul id="resourceDocs"></ul>
+      <div>
+        <h3>Docs</h3>
+        <ul id="resourceDocs"></ul>
+      </div>
+      <div>
+        <h3>Links</h3>
+        <ul id="resourceLinks"></ul>
+      </div>
     </div>
-    <div>
-      <h3>Links</h3>
-      <ul id="resourceLinks"></ul>
-    </div>
-  </div>
-</section>
+  </section>
 
-    <section id="announcements" class="card">
-      <h2>Announcements</h2>
-      <ul id="announcementsList"></ul>
-    </section>
+  <!-- Announcements Section -->
+  <section id="announcements" class="card">
+    <h2>Announcements</h2>
+    <ul id="announcementsList"></ul>
+  </section>
 
-    <section id="timeline" class="card">
-      <h2>Timeline</h2>
-      <ol id="roadmapList"></ol>
-    </section>
+  <!-- Timeline Section -->
+  <section id="timeline" class="card">
+    <h2>Timeline</h2>
+    <ol id="roadmapList"></ol>
+  </section>
 
-  </main>
+</main>
 
-  <!-- Footer -->
+<!-- Footer -->
 <footer class="footer">
   <p>Enterprise Information Services — State of Oregon</p>
   <p>Cyber Security Services Guidance Portal</p>
@@ -135,8 +143,8 @@
   <small>© <span id="year"></span> Managed by the Cybersecurity Assessment Team</small>
 </footer>
 
-  <!-- JavaScript -->
-  <script>
+<!-- JavaScript -->
+<script>
   // Theme toggle
   const root = document.documentElement;
   const toggle = document.getElementById('themeToggle');
@@ -182,8 +190,8 @@
       const res = await fetch('guidance.json');
       const data = await res.json();
 
-      // Best practices
-      for (const [key, items] of Object.entries(data.bestPractices || {})) {
+      // Important Documents
+      for (const [key, items] of Object.entries(data.importantDocuments || {})) {
         const ul = document.getElementById(`bp-${key}`);
         if (!ul) continue;
         ul.innerHTML = items.map(i => `<li>${i}</li>`).join('');
@@ -215,8 +223,7 @@
       card.style.display = text.includes(q) ? '' : 'none';
     });
   });
-
-  </script>
+</script>
 
 </body>
 </html>
