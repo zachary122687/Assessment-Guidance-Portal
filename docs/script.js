@@ -4,7 +4,6 @@
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 
-// Load theme from localStorage or default to light
 let currentTheme = localStorage.getItem('theme') || 'light';
 root.dataset.theme = currentTheme;
 toggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
@@ -51,13 +50,13 @@ document.querySelectorAll('.tab').forEach(tab => {
     // Lazy-load Markdown for Artifact tabs
     if (tabName === 'request') {
       await loadMarkdown(
-        "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Request.md",
+        "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md",
         "artifactContent",
         "Failed to load Artifact Request document."
       );
     } else if (tabName === 'collector') {
       await loadMarkdown(
-        "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Collector-Powershell-Scripts.md",
+        "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Collector-Powershell-Scripts.md",
         "collectorContent",
         "Failed to load Artifact Collector document."
       );
