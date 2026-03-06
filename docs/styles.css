@@ -1,6 +1,4 @@
-/* =========================
-   Root Variables & Colors
-========================= */
+/* Root Variables & Colors */
 :root {
   /* Official EIS Colors */
   --primary-dark: #203864;
@@ -18,9 +16,7 @@
   --border: #d9e1ec;
 }
 
-/* =========================
-   Global Styles
-========================= */
+/*Global Styles*/
 * {
   box-sizing: border-box;
 }
@@ -40,9 +36,7 @@ body {
     "footer footer";
 }
 
-/* =========================
-   Header / Topbar
-========================= */
+/*Header / Topbar*/
 .topbar {
   grid-area: topbar;
   display: flex;
@@ -68,9 +62,7 @@ body {
   font-weight: 600;
 }
 
-/* =========================
-   Hero Image
-========================= */
+/*Hero Image*/
 .hero {
   background-image: url("globe-header.jpg");
   background-size: cover;
@@ -79,9 +71,7 @@ body {
   border-bottom: 3px solid var(--primary-blue);
 }
 
-/* =========================
-   Sidebar
-========================= */
+/*Sidebar*/
 .sidebar {
   grid-area: sidebar;
   padding: 20px;
@@ -106,9 +96,7 @@ body {
   background: rgba(64, 192, 189, 0.1);
 }
 
-/* =========================
-   Main Content
-========================= */
+/*Main Content*/
 .content {
   grid-area: content;
   padding: 30px;
@@ -116,9 +104,7 @@ body {
   gap: 20px;
 }
 
-/* =========================
-   Cards
-========================= */
+/*Cards*/
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -145,9 +131,7 @@ body {
   color: #40c0bd;
 }
 
-/* =========================
-   Buttons
-========================= */
+/*Buttons*/
 .btn {
   padding: 10px 14px;
   border-radius: 6px;
@@ -161,16 +145,12 @@ body {
   background: var(--primary-dark);
 }
 
-/* =========================
-   Status Colors
-========================= */
+/*Status Colors*/
 .status.ok { color: var(--accent-green); }
 .status.warn { color: var(--accent-orange); }
 .status.pending { color: var(--primary-blue); }
 
-/* =========================
-   Footer
-========================= */
+/*Footer*/
 .footer {
   grid-area: footer;
   background: var(--primary-dark);
@@ -184,9 +164,7 @@ body {
   margin-top: 10px;
 }
 
-/* =========================
-   Tabs
-========================= */
+/*Tabs*/
 .tabs {
   display: flex;
   gap: 10px;
@@ -208,9 +186,7 @@ body {
   border-color: var(--primary-blue);
 }
 
-/* =========================
-   Panels
-========================= */
+/*Panels*/
 .panel {
   display: none;
 }
@@ -219,9 +195,7 @@ body {
   display: block;
 }
 
-/* =========================
-   Dark Mode Styles
-========================= */
+/*Dark Mode Styles*/
 [data-theme="dark"] {
   --bg: #1a1a1a;
   --card: #242424;
@@ -268,9 +242,7 @@ body {
   color: white;
 }
 
-/* =========================
-   Responsive
-========================= */
+/*Responsive*/
 @media (max-width: 900px) {
   body {
     grid-template-columns: 1fr;
