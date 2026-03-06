@@ -31,7 +31,7 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ==========================
-// Load JSON Data (Templates, FAQ, Resources, etc.)
+// Load JSON Data (Templates, FAQ, Resources, Announcements, Timeline)
 // ==========================
 async function loadData() {
   try {
@@ -39,7 +39,7 @@ async function loadData() {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
 
-    // Important Documents lists
+    // Important Documents
     if (data.importantDocuments) {
       for (const [key, items] of Object.entries(data.importantDocuments)) {
         const ul = document.getElementById(`bp-${key}`);
@@ -120,7 +120,7 @@ function loadAssessmentSchedule() {
 loadAssessmentSchedule();
 
 // ==========================
-// Load Markdown from GitHub Pages (CORS friendly)
+// Load Markdown Files via GitHub Pages
 // ==========================
 async function loadMarkdown(url, containerId, fallbackMessage) {
   const container = document.getElementById(containerId);
