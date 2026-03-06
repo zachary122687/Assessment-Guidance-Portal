@@ -31,7 +31,7 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ==========================
-// Load JSON Data
+// Load JSON Data (Templates, FAQ, Resources, etc.)
 // ==========================
 async function loadData() {
   try {
@@ -39,7 +39,7 @@ async function loadData() {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
 
-    // Important Documents
+    // Important Documents lists
     if (data.importantDocuments) {
       for (const [key, items] of Object.entries(data.importantDocuments)) {
         const ul = document.getElementById(`bp-${key}`);
@@ -120,7 +120,7 @@ function loadAssessmentSchedule() {
 loadAssessmentSchedule();
 
 // ==========================
-// Load Markdown from GitHub
+// Load Markdown from GitHub Pages (CORS friendly)
 // ==========================
 async function loadMarkdown(url, containerId, fallbackMessage) {
   const container = document.getElementById(containerId);
@@ -139,14 +139,14 @@ async function loadMarkdown(url, containerId, fallbackMessage) {
 
 // Artifact Request
 loadMarkdown(
-  "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md",
+  "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Request.md",
   "artifactContent",
   "Failed to load Artifact Request document."
 );
 
 // Artifact Collector
 loadMarkdown(
-  "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Collector-Powershell-Scripts.md",
-  "collectorContent", // Updated to match the HTML
+  "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Collector-Powershell-Scripts.md",
+  "collectorContent",
   "Failed to load Artifact Collector document."
 );
