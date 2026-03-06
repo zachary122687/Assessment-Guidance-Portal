@@ -1,6 +1,4 @@
-// =========================
 // Theme Toggle
-// =========================
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 
@@ -16,9 +14,7 @@ toggle?.addEventListener('click', () => {
   toggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
 });
 
-// =========================
 // Tabs
-// =========================
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const tabName = tab.dataset.tab;
@@ -33,15 +29,11 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
-// =========================
 // Footer Year
-// =========================
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// =========================
 // Load JSON Data
-// =========================
 async function loadData() {
   try {
     const response = await fetch('guidance.json');
@@ -119,9 +111,7 @@ async function loadData() {
 
 loadData();
 
-// =========================
 // Search Functionality
-// =========================
 const searchInput = document.getElementById('searchInput');
 searchInput?.addEventListener('input', (e) => {
   const q = (e.target.value || '').toLowerCase();
