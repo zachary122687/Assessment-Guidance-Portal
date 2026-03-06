@@ -49,17 +49,6 @@ async function loadData() {
       }
     }
 
-    // ---- Checklists ----
-    const cl = document.getElementById('checklistCards');
-    if (cl && data.checklists) {
-      cl.innerHTML = data.checklists.map(list => `
-        <div class="tile">
-          <h3>${list.title}</h3>
-          <ul>${list.items.map(i => `<li>${i}</li>`).join('')}</ul>
-        </div>
-      `).join('');
-    }
-
     // ---- Templates ----
     const tl = document.getElementById('templateList');
     if (tl && data.templates) {
