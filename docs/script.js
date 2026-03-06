@@ -1,4 +1,6 @@
+// ==========================
 // Theme Toggle
+// ==========================
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 
@@ -14,7 +16,10 @@ toggle?.addEventListener('click', () => {
   toggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
 });
 
-// Tabs
+
+// ==========================
+// Tabs Functionality
+// ==========================
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const tabName = tab.dataset.tab;
@@ -29,11 +34,17 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
+
+// ==========================
 // Footer Year
+// ==========================
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Load JSON Data
+
+// ==========================
+// Load Guidance JSON
+// ==========================
 async function loadData() {
   try {
     const response = await fetch('guidance.json');
@@ -100,7 +111,10 @@ async function loadData() {
 
 loadData();
 
+
+// ==========================
 // Search Functionality
+// ==========================
 const searchInput = document.getElementById('searchInput');
 searchInput?.addEventListener('input', (e) => {
   const q = (e.target.value || '').toLowerCase();
@@ -108,3 +122,44 @@ searchInput?.addEventListener('input', (e) => {
     card.style.display = card.innerText.toLowerCase().includes(q) ? '' : 'none';
   });
 });
+
+
+// ==========================
+// Load Artifact Request from GitHub
+// ==========================
+async function loadArtifactRequest() {
+  const url = "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md";
+  const container = document.getElementById("artifactContent");
+  if (!container) return;
+
+  try {
+    const res = await fetch(url);
+    const markdown = await res.text();
+    container.innerHTML = marked.parse(markdown);
+  } catch (err) {
+    container.innerHTML = "Failed to load Artifact Request document.";
+    console.error(err);
+  }
+}
+
+loadArtifactRequest();
+
+
+// ==========================
+// Load Assessment Schedule PDF dynamically
+// ==========================
+function loadAssessmentSchedule() {
+  const scheduleUrl = "https://www.oregon.gov/eis/cyber-security-services/Documents/eis-css-assessment-schedule.pdf";
+  const container = document.getElementById("scheduleContent");
+  if (!container) return;
+
+  container.innerHTML = `
+    <p>
+      <a href="${scheduleUrl}" target="_blank" rel="noopener">
+        Click here to open the Cybersecurity Assessment Schedule (PDF)
+      </a>
+    </p>
+  `;
+}
+
+loadAssessmentSchedule();
