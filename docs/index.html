@@ -1,155 +1,277 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cybersecurity Assessment Guidance Portal</title>
-  <meta name="description" content="General guidance hub." />
+
+  <meta name="description" content="Cybersecurity Assessment Guidance Portal">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Markdown renderer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body data-theme="light">
 
-<!-- Topbar -->
-<header class="topbar">
-  <div class="header-left">
-    <img 
-      src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/eis-logo.png"
-      class="header-logo"
-      alt="Enterprise Information Services logo"
-    />
-    <div class="header-title">
-      Cybersecurity Services – Assessment Guidance Portal
+  <!-- Topbar -->
+  <header class="topbar">
+
+    <div class="header-left">
+
+      <img
+        src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/eis-logo.png"
+        class="header-logo"
+        alt="Enterprise Information Services logo">
+
+      <div class="header-title">
+        Cybersecurity Services – Assessment Guidance Portal
+      </div>
+
     </div>
+
+    <nav class="actions">
+
+      <div class="search">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search guidance..."
+          aria-label="Search portal">
+      </div>
+
+      <button
+        class="btn outline"
+        id="themeToggle"
+        aria-label="Toggle theme">
+        🌙
+      </button>
+
+    </nav>
+
+  </header>
+
+
+  <!-- Hero Image -->
+  <div
+    class="hero"
+    style="background-image:url('https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/globe-header.jpg');">
   </div>
-  <nav class="actions">
-    <div class="search">
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search guidance..."
-        aria-label="Search guidance portal"
-      />
-    </div>
-    <button
-      class="btn outline"
-      id="themeToggle"
-      aria-label="Toggle theme"
-    >
-      🌙
-    </button>
-  </nav>
-</header>
 
-<!-- Globe Header Image -->
-<div class="hero" style="background-image: url('https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/globe-header.jpg');"></div>
 
-<!-- Sidebar -->
-<aside class="sidebar">
-  <h3>Navigation</h3>
-  <ul>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#important-documents">Important Documents</a></li>
-    <li><a href="#templates">Templates</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#resources">Resources</a></li>
-    <li><a href="#announcements">Announcements</a></li>
-    <li><a href="#timeline">Timeline</a></li>
-  </ul>
-</aside>
-  
-<!-- Main Content -->
-<main class="content">
 
-  <!-- Overview Section -->
-  <section id="overview" class="card">
-    <h2>Overview</h2>
-    <p>Welcome to the Cybersecurity Assessment Guidance Portal.</p>
-  </section>
+  <!-- Sidebar -->
+  <aside class="sidebar">
 
-  <!-- Important Documents Section -->
-  <section id="important-documents" class="card">
-    <h2>Important Documents</h2>
+    <h3>Navigation</h3>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab active" data-tab="schedule">Assessment Schedule</button>
-      <button class="tab" data-tab="request">Artifact Request Form</button>
-      <button class="tab" data-tab="collector">Artifact Collector</button>
-    </div>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#important-documents">Important Documents</a></li>
+      <li><a href="#templates">Templates</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#announcements">Announcements</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+    </ul>
 
-    <!-- Tab Panels -->
-    <div class="tab-panels">
-      <div class="panel active" id="panel-schedule">
-        <ul id="bp-schedule"></ul>
+  </aside>
+
+
+
+  <!-- Main Content -->
+  <main class="content">
+
+
+    <!-- Overview -->
+    <section id="overview" class="card">
+
+      <h2>Overview</h2>
+
+      <p>
+        Welcome to the Cybersecurity Assessment Guidance Portal.
+        This portal provides documentation, templates, and guidance
+        for cybersecurity assessments.
+      </p>
+
+    </section>
+
+
+
+    <!-- Important Documents -->
+    <section id="important-documents" class="card">
+
+      <h2>Important Documents</h2>
+
+      <div class="tabs">
+
+        <button class="tab active" data-tab="schedule">
+          Assessment Schedule
+        </button>
+
+        <button class="tab" data-tab="request">
+          Artifact Request Form
+        </button>
+
+        <button class="tab" data-tab="collector">
+          Artifact Collector
+        </button>
+
       </div>
-      <div class="panel" id="panel-request">
-        <ul id="bp-request"></ul>
+
+
+      <div class="tab-panels">
+
+        <div class="panel active" id="panel-schedule">
+          <ul id="bp-schedule"></ul>
+        </div>
+
+
+        <div class="panel" id="panel-request">
+
+          <!-- GitHub Markdown loads here -->
+          <div id="artifactContent">
+            Loading document...
+          </div>
+
+        </div>
+
+
+        <div class="panel" id="panel-collector">
+          <ul id="bp-collector"></ul>
+        </div>
+
       </div>
-      <div class="panel" id="panel-collector">
-        <ul id="bp-collector"></ul>
+
+    </section>
+
+
+
+    <!-- Templates -->
+    <section id="templates" class="card">
+
+      <h2>Templates</h2>
+
+      <ul id="templateList"></ul>
+
+    </section>
+
+
+
+    <!-- FAQ -->
+    <section id="faq" class="card">
+
+      <h2>FAQ</h2>
+
+      <div id="faqList"></div>
+
+    </section>
+
+
+
+    <!-- Resources -->
+    <section id="resources" class="card">
+
+      <h2>Resources</h2>
+
+      <div class="grid two">
+
+        <div>
+          <h3>Docs</h3>
+          <ul id="resourceDocs"></ul>
+        </div>
+
+        <div>
+          <h3>Links</h3>
+          <ul id="resourceLinks"></ul>
+        </div>
+
       </div>
-    </div>
-  </section>
 
-  <!-- Templates Section -->
-  <section id="templates" class="card">
-    <h2>Templates</h2>
-    <ul id="templateList"></ul>
-  </section>
+    </section>
 
-  <!-- FAQ Section -->
-  <section id="faq" class="card">
-    <h2>FAQ</h2>
-    <div id="faqList"></div>
-  </section>
 
-  <!-- Resources Section -->
-  <section id="resources" class="card">
-    <h2>Resources</h2>
-    <div class="grid two">
-      <div>
-        <h3>Docs</h3>
-        <ul id="resourceDocs"></ul>
-      </div>
-      <div>
-        <h3>Links</h3>
-        <ul id="resourceLinks"></ul>
-      </div>
-    </div>
-  </section>
 
-  <!-- Announcements Section -->
-  <section id="announcements" class="card">
-    <h2>Announcements</h2>
-    <ul id="announcementsList"></ul>
-  </section>
+    <!-- Announcements -->
+    <section id="announcements" class="card">
 
-  <!-- Timeline Section -->
-  <section id="timeline" class="card">
-    <h2>Timeline</h2>
-    <ol id="roadmapList"></ol>
-  </section>
+      <h2>Announcements</h2>
 
-</main>
+      <ul id="announcementsList"></ul>
 
-<!-- Footer -->
-<footer class="footer">
-  <!-- Centered Seal -->
-  <img
-    src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/cyber-command-seal.png"
-    class="footer-seal"
-    alt="State Cyber Command Seal"
-  />
+    </section>
 
-  <!-- Footer Text -->
-  <p>Enterprise Information Services — State of Oregon</p>
-  <p>Cybersecurity Services Guidance Portal</p>
-  <small>© <span id="year"></span> Managed by the Cybersecurity Assessment Team</small>
-</footer>
 
-<!-- JavaScript -->
-<script src="script.js"></script>
+
+    <!-- Timeline -->
+    <section id="timeline" class="card">
+
+      <h2>Timeline</h2>
+
+      <ol id="roadmapList"></ol>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- Footer -->
+  <footer class="footer">
+
+    <img
+      src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/cyber-command-seal.png"
+      class="footer-seal"
+      alt="State Cyber Command Seal">
+
+    <p>Enterprise Information Services — State of Oregon</p>
+    <p>Cybersecurity Services Guidance Portal</p>
+
+    <small>
+      © <span id="year"></span>
+      Managed by the Cybersecurity Assessment Team
+    </small>
+
+  </footer>
+
+
+
+  <!-- Load Artifact Request Markdown -->
+  <script>
+
+    async function loadArtifactRequest() {
+
+      const url =
+        "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md";
+
+      try {
+
+        const response = await fetch(url);
+        const markdown = await response.text();
+
+        document.getElementById("artifactContent").innerHTML =
+          marked.parse(markdown);
+
+      } catch (err) {
+
+        document.getElementById("artifactContent").innerHTML =
+          "Failed to load Artifact Request document.";
+
+        console.error(err);
+
+      }
+
+    }
+
+    loadArtifactRequest();
+
+  </script>
+
+
+  <!-- Portal JS -->
+  <script src="script.js"></script>
 
 </body>
 </html>
