@@ -19,7 +19,6 @@ toggle?.addEventListener('click', () => {
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const tabName = tab.dataset.tab;
-
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tabName}`));
   });
@@ -121,7 +120,7 @@ function loadAssessmentSchedule() {
 loadAssessmentSchedule();
 
 // ==========================
-// Load Artifact Request and Collector from GitHub
+// Load Markdown from GitHub
 // ==========================
 async function loadMarkdown(url, containerId, fallbackMessage) {
   const container = document.getElementById(containerId);
@@ -129,6 +128,7 @@ async function loadMarkdown(url, containerId, fallbackMessage) {
 
   try {
     const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const markdown = await res.text();
     container.innerHTML = marked.parse(markdown);
   } catch (err) {
@@ -147,6 +147,6 @@ loadMarkdown(
 // Artifact Collector
 loadMarkdown(
   "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Collector-Powershell-Scripts.md",
-  "bp-collector",
+  "collectorContent", // Updated to match the HTML
   "Failed to load Artifact Collector document."
 );
