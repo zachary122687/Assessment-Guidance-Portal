@@ -5,11 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cybersecurity Assessment Guidance Portal</title>
-
   <meta name="description" content="Cybersecurity Assessment Guidance Portal">
-
   <link rel="stylesheet" href="styles.css">
-
   <!-- Markdown renderer -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -18,55 +15,27 @@
 
   <!-- Topbar -->
   <header class="topbar">
-
     <div class="header-left">
-
-      <img
-        src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/eis-logo.png"
-        class="header-logo"
-        alt="Enterprise Information Services logo">
-
-      <div class="header-title">
-        Cybersecurity Services – Assessment Guidance Portal
-      </div>
-
+      <img src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/eis-logo.png"
+        class="header-logo" alt="Enterprise Information Services logo">
+      <div class="header-title">Cybersecurity Services – Assessment Guidance Portal</div>
     </div>
-
     <nav class="actions">
-
       <div class="search">
-        <input
-          id="searchInput"
-          type="search"
-          placeholder="Search guidance..."
-          aria-label="Search portal">
+        <input id="searchInput" type="search" placeholder="Search guidance..." aria-label="Search portal">
       </div>
-
-      <button
-        class="btn outline"
-        id="themeToggle"
-        aria-label="Toggle theme">
-        🌙
-      </button>
-
+      <button class="btn outline" id="themeToggle" aria-label="Toggle theme">🌙</button>
     </nav>
-
   </header>
 
-
   <!-- Hero Image -->
-  <div
-    class="hero"
+  <div class="hero"
     style="background-image:url('https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/globe-header.jpg');">
   </div>
 
-
-
   <!-- Sidebar -->
   <aside class="sidebar">
-
     <h3>Navigation</h3>
-
     <ul>
       <li><a href="#overview">Overview</a></li>
       <li><a href="#important-documents">Important Documents</a></li>
@@ -76,201 +45,100 @@
       <li><a href="#announcements">Announcements</a></li>
       <li><a href="#timeline">Timeline</a></li>
     </ul>
-
   </aside>
-
-
 
   <!-- Main Content -->
   <main class="content">
 
-
     <!-- Overview -->
     <section id="overview" class="card">
-
       <h2>Overview</h2>
-
-      <p>
-        Welcome to the Cybersecurity Assessment Guidance Portal.
-        This portal provides documentation, templates, and guidance
-        for cybersecurity assessments.
-      </p>
-
+      <p>Welcome to the Cybersecurity Assessment Guidance Portal. This portal provides documentation, templates, and guidance for cybersecurity assessments.</p>
     </section>
-
-
 
     <!-- Important Documents -->
     <section id="important-documents" class="card">
-
       <h2>Important Documents</h2>
 
+      <!-- Tabs -->
       <div class="tabs">
-
-        <button class="tab active" data-tab="schedule">
-          Assessment Schedule
-        </button>
-
-        <button class="tab" data-tab="request">
-          Artifact Request Form
-        </button>
-
-        <button class="tab" data-tab="collector">
-          Artifact Collector
-        </button>
-
+        <button class="tab active" data-tab="schedule">Assessment Schedule</button>
+        <button class="tab" data-tab="request">Artifact Request Form</button>
+        <button class="tab" data-tab="collector">Artifact Collector</button>
       </div>
 
-
+      <!-- Tab Panels -->
       <div class="tab-panels">
 
+        <!-- Schedule Panel -->
         <div class="panel active" id="panel-schedule">
-          <ul id="bp-schedule"></ul>
+          <div id="scheduleContent">Loading schedule...</div>
         </div>
 
-
+        <!-- Artifact Request Panel -->
         <div class="panel" id="panel-request">
-
-          <!-- GitHub Markdown loads here -->
-          <div id="artifactContent">
-            Loading document...
-          </div>
-
+          <div id="artifactContent">Loading document...</div>
         </div>
 
-
+        <!-- Collector Panel -->
         <div class="panel" id="panel-collector">
           <ul id="bp-collector"></ul>
         </div>
 
       </div>
-
     </section>
-
-
 
     <!-- Templates -->
     <section id="templates" class="card">
-
       <h2>Templates</h2>
-
       <ul id="templateList"></ul>
-
     </section>
-
-
 
     <!-- FAQ -->
     <section id="faq" class="card">
-
       <h2>FAQ</h2>
-
       <div id="faqList"></div>
-
     </section>
-
-
 
     <!-- Resources -->
     <section id="resources" class="card">
-
       <h2>Resources</h2>
-
       <div class="grid two">
-
         <div>
           <h3>Docs</h3>
           <ul id="resourceDocs"></ul>
         </div>
-
         <div>
           <h3>Links</h3>
           <ul id="resourceLinks"></ul>
         </div>
-
       </div>
-
     </section>
-
-
 
     <!-- Announcements -->
     <section id="announcements" class="card">
-
       <h2>Announcements</h2>
-
       <ul id="announcementsList"></ul>
-
     </section>
-
-
 
     <!-- Timeline -->
     <section id="timeline" class="card">
-
       <h2>Timeline</h2>
-
       <ol id="roadmapList"></ol>
-
     </section>
 
   </main>
 
-
-
   <!-- Footer -->
   <footer class="footer">
-
-    <img
-      src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/cyber-command-seal.png"
-      class="footer-seal"
-      alt="State Cyber Command Seal">
-
+    <img src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/cyber-command-seal.png"
+      class="footer-seal" alt="State Cyber Command Seal">
     <p>Enterprise Information Services — State of Oregon</p>
     <p>Cybersecurity Services Guidance Portal</p>
-
-    <small>
-      © <span id="year"></span>
-      Managed by the Cybersecurity Assessment Team
-    </small>
-
+    <small>© <span id="year"></span> Managed by the Cybersecurity Assessment Team</small>
   </footer>
 
-
-
-  <!-- Load Artifact Request Markdown -->
-  <script>
-
-    async function loadArtifactRequest() {
-
-      const url =
-        "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md";
-
-      try {
-
-        const response = await fetch(url);
-        const markdown = await response.text();
-
-        document.getElementById("artifactContent").innerHTML =
-          marked.parse(markdown);
-
-      } catch (err) {
-
-        document.getElementById("artifactContent").innerHTML =
-          "Failed to load Artifact Request document.";
-
-        console.error(err);
-
-      }
-
-    }
-
-    loadArtifactRequest();
-
-  </script>
-
-
-  <!-- Portal JS -->
+  <!-- Portal Script -->
   <script src="script.js"></script>
 
 </body>
