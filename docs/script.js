@@ -1,5 +1,5 @@
 // ==========================
-// Root & Theme Toggle
+// Theme Toggle
 // ==========================
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
@@ -22,7 +22,7 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ==========================
-// Debounced Search
+// Search Functionality
 // ==========================
 const searchInput = document.getElementById('searchInput');
 let searchTimeout;
@@ -47,10 +47,13 @@ document.querySelectorAll('.tab').forEach(tab => {
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
     document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tabName}`));
 
+    // Update aria-selected
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', t === tab ? "true" : "false"));
+
     // Lazy-load Markdown for Artifact tabs
     if (tabName === 'request') {
       await loadMarkdown(
-        "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md",
+        "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/refs/heads/main/Artifact-Request.md",
         "artifactContent",
         "Failed to load Artifact Request document."
       );
@@ -83,7 +86,7 @@ async function loadMarkdown(url, containerId, fallbackMessage) {
 }
 
 // ==========================
-// Load Assessment Schedule
+// Load Assessment Schedule PDF
 // ==========================
 function loadAssessmentSchedule() {
   const scheduleUrl = "https://www.oregon.gov/eis/cyber-security-services/Documents/eis-css-assessment-schedule.pdf";
