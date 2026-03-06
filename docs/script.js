@@ -1,27 +1,19 @@
 // ==========================
-// Theme Toggle
+// Root & Theme Toggle
 // ==========================
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 
-if (!root.dataset.theme) root.dataset.theme = 'light';
-if (toggle) toggle.textContent = root.dataset.theme === 'dark' ? '🌙' : '☀️';
+// Load theme from localStorage or default to light
+let currentTheme = localStorage.getItem('theme') || 'light';
+root.dataset.theme = currentTheme;
+toggle.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
 
 toggle?.addEventListener('click', () => {
   const newTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
   root.dataset.theme = newTheme;
   toggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-});
-
-// ==========================
-// Tabs Functionality
-// ==========================
-document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    const tabName = tab.dataset.tab;
-    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
-    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tabName}`));
-  });
+  localStorage.setItem('theme', newTheme);
 });
 
 // ==========================
@@ -31,7 +23,82 @@ const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ==========================
-// Load JSON Data (Templates, FAQ, Resources, etc.)
+// Debounced Search
+// ==========================
+const searchInput = document.getElementById('searchInput');
+let searchTimeout;
+searchInput?.addEventListener('input', (e) => {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(() => {
+    const q = (e.target.value || '').toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.display = card.innerText.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }, 200);
+});
+
+// ==========================
+// Tabs + Lazy Markdown Loader
+// ==========================
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', async () => {
+    const tabName = tab.dataset.tab;
+
+    // Activate tab
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === tab));
+    document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tabName}`));
+
+    // Lazy-load Markdown for Artifact tabs
+    if (tabName === 'request') {
+      await loadMarkdown(
+        "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Request.md",
+        "artifactContent",
+        "Failed to load Artifact Request document."
+      );
+    } else if (tabName === 'collector') {
+      await loadMarkdown(
+        "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Collector-Powershell-Scripts.md",
+        "collectorContent",
+        "Failed to load Artifact Collector document."
+      );
+    }
+  });
+});
+
+// Markdown loader
+async function loadMarkdown(url, containerId, fallbackMessage) {
+  const container = document.getElementById(containerId);
+  if (!container || container.dataset.loaded === "true") return;
+
+  container.innerHTML = "<p>Loading...</p>";
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const markdown = await res.text();
+    container.innerHTML = marked.parse(markdown);
+    container.dataset.loaded = "true";
+  } catch (err) {
+    container.innerHTML = `<p style="color:red;">${fallbackMessage}</p>`;
+    console.error(`Failed to load Markdown from ${url}:`, err);
+  }
+}
+
+// ==========================
+// Load Assessment Schedule
+// ==========================
+function loadAssessmentSchedule() {
+  const scheduleUrl = "https://www.oregon.gov/eis/cyber-security-services/Documents/eis-css-assessment-schedule.pdf";
+  const container = document.getElementById("scheduleContent");
+  if (!container) return;
+
+  container.innerHTML = `<p><a href="${scheduleUrl}" target="_blank" rel="noopener">
+    Click here to open the Cybersecurity Assessment Schedule (PDF)
+  </a></p>`;
+}
+loadAssessmentSchedule();
+
+// ==========================
+// Load JSON Data (Templates, FAQ, Resources, Announcements, Timeline)
 // ==========================
 async function loadData() {
   try {
@@ -68,13 +135,15 @@ async function loadData() {
     // Announcements
     const ann = document.getElementById('announcementsList');
     if (ann && data.announcements) {
-      ann.innerHTML = data.announcements.map(a => `<li><strong>${a.date}</strong> — ${a.text}</li>`).join('');
+      ann.innerHTML = data.announcements.map(a =>
+        `<li><strong>${a.date}</strong> — ${a.text}</li>`).join('');
     }
 
     // Timeline
     const rm = document.getElementById('roadmapList');
     if (rm && data.timeline) {
-      rm.innerHTML = data.timeline.map(r => `<li><strong>${r.quarter}</strong>: ${r.items.join(', ')}</li>`).join('');
+      rm.innerHTML = data.timeline.map(r =>
+        `<li><strong>${r.quarter}</strong>: ${r.items.join(', ')}</li>`).join('');
     }
 
   } catch (err) {
@@ -83,61 +152,3 @@ async function loadData() {
 }
 
 loadData();
-
-// ==========================
-// Search Functionality
-// ==========================
-const searchInput = document.getElementById('searchInput');
-searchInput?.addEventListener('input', (e) => {
-  const q = (e.target.value || '').toLowerCase();
-  document.querySelectorAll('.card').forEach(card => {
-    card.style.display = card.innerText.toLowerCase().includes(q) ? '' : 'none';
-  });
-});
-
-// ==========================
-// Load Assessment Schedule PDF
-// ==========================
-function loadAssessmentSchedule() {
-  const scheduleUrl = "https://www.oregon.gov/eis/cyber-security-services/Documents/eis-css-assessment-schedule.pdf";
-  const container = document.getElementById("scheduleContent");
-  if (!container) return;
-
-  container.innerHTML = `<p><a href="${scheduleUrl}" target="_blank" rel="noopener">
-    Click here to open the Cybersecurity Assessment Schedule (PDF)
-  </a></p>`;
-}
-
-loadAssessmentSchedule();
-
-// ==========================
-// Load Markdown from GitHub Pages (CORS friendly)
-// ==========================
-async function loadMarkdown(url, containerId, fallbackMessage) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const markdown = await res.text();
-    container.innerHTML = marked.parse(markdown);
-  } catch (err) {
-    container.innerHTML = fallbackMessage;
-    console.error(err);
-  }
-}
-
-// Artifact Request
-loadMarkdown(
-  "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Request.md",
-  "artifactContent",
-  "Failed to load Artifact Request document."
-);
-
-// Artifact Collector
-loadMarkdown(
-  "https://stateoforegon-eis-css.github.io/Oregon-CIS-Assessments/Artifact-Collector-Powershell-Scripts.md",
-  "collectorContent",
-  "Failed to load Artifact Collector document."
-);
