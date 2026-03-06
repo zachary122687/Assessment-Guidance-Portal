@@ -16,34 +16,7 @@
       "Data Retention Rules"
     ]
   },
-  "checklists": [
-    {
-      "title": "Project Kickoff",
-      "items": [
-        "Define scope and objectives",
-        "Stakeholder mapping & roles",
-        "Communication plan & cadence"
-      ]
-    },
-    {
-      "title": "Release Readiness",
-      "items": [
-        "Feature complete and regression tested",
-        "Security review complete",
-        "Docs updated; runbooks ready",
-        "Rollback validated"
-      ]
-    },
-    {
-      "title": "Operational Handover",
-      "items": [
-        "Monitoring and alerts configured",
-        "On-call schedule published",
-        "Access lists reviewed",
-        "Knowledge base updated"
-      ]
-    }
-  ],
+ 
   "templates": [
     { "name": "Template1.docx", "href": "assets/Template1.docx", "desc": "Description for Template1 document." },
     { "name": "Template2.docx", "href": "assets/Template2.docx", "desc": "Description for Template1 document." },
