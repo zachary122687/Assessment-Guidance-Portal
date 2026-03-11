@@ -2,203 +2,237 @@
 <html lang="en">
 
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Cybersecurity Assessment Guidance Portal</title>
-
 <link rel="stylesheet" href="styles.css">
-
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 </head>
 
 <body data-theme="light">
 
 <header class="topbar">
+  <div class="header-left">
+    <img src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/eis-logo.png"
+      class="header-logo" alt="Enterprise Information Services logo">
+    <div class="header-title">
+      Cybersecurity Services – Assessment Guidance Portal
+    </div>
+  </div>
 
-<div class="header-left">
-
-<img
-src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/eis-logo.png"
-class="header-logo"
-alt="Enterprise Information Services logo"
->
-
-<div class="header-title">
-Cybersecurity Services – Assessment Guidance Portal
-</div>
-
-</div>
-
-<nav class="actions">
-
-<div class="search">
-<input
-id="searchInput"
-type="search"
-placeholder="Search guidance..."
-aria-label="Search portal"
->
-</div>
-
-<button class="btn outline" id="themeToggle">🌙</button>
-
-</nav>
-
+  <nav class="actions">
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Search guidance..." aria-label="Search portal">
+    </div>
+    <button class="btn outline" id="themeToggle">🌙</button>
+  </nav>
 </header>
 
-<div
-class="hero"
-style="background-image:url('https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/globe-header.jpg');"
-></div>
+<div class="hero"
+  style="background-image:url('https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/globe-header.jpg');">
+</div>
 
 <aside class="sidebar">
-
-<h3>Navigation</h3>
-
-<ul>
-
-<li><a href="#overview">Overview</a></li>
-<li><a href="#important-documents">Important Documents</a></li>
-<li><a href="#templates">Templates</a></li>
-<li><a href="#faq">FAQ</a></li>
-<li><a href="#resources">Resources</a></li>
-<li><a href="#announcements">Announcements</a></li>
-
-</ul>
-
+  <h3>Navigation</h3>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#important-documents">Important Documents</a></li>
+    <li><a href="#templates">Templates</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#announcements">Announcements</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+  </ul>
 </aside>
 
 <main class="content">
 
-<section id="overview" class="card">
+  <!-- Overview -->
+  <section id="overview" class="card">
+    <h2>Overview</h2>
+    <p>
+      Welcome to the Cybersecurity Assessment Guidance Portal. This portal provides documentation, templates, and
+      guidance for cybersecurity assessments.
+    </p>
+  </section>
 
-<h2>Overview</h2>
+  <!-- Important Documents -->
+  <section id="important-documents" class="card">
+    <h2>Important Documents</h2>
 
-<p>
-Welcome to the Cybersecurity Assessment Guidance Portal.
-This portal provides documentation, templates, and guidance
-for cybersecurity assessments.
-</p>
+    <div class="tabs">
+      <button class="tab active" data-tab="schedule">Assessment Schedule</button>
+      <button class="tab" data-tab="request">Artifact Request</button>
+      <button class="tab" data-tab="collector">Artifact Collector</button>
+      <button class="tab" data-tab="index">Assessment Index</button>
+      <button class="tab" data-tab="relationships">Safeguard Relationships</button>
+      <button class="tab" data-tab="kql">Defender KQL</button>
+      <button class="tab" data-tab="grouppolicy">Group Policy Settings</button>
+      <button class="tab" data-tab="recommend">Implementation Recommendations</button>
+    </div>
 
-</section>
+    <div class="tab-panels">
+      <div class="panel active" id="panel-schedule">
+        <div id="scheduleContent">
+          <p><a href="https://www.oregon.gov/eis/cyber-security-services/Documents/eis-css-assessment-schedule.pdf"
+              target="_blank" rel="noopener">Open Cybersecurity Assessment Schedule (PDF)</a></p>
+        </div>
+      </div>
+      <div class="panel" id="panel-request">
+        <div id="artifactContent">
+          <p>Artifact Request guidance content goes here.</p>
+        </div>
+      </div>
+      <div class="panel" id="panel-collector">
+        <div id="collectorContent">
+          <p>Artifact Collector scripts guidance goes here.</p>
+        </div>
+      </div>
+      <div class="panel" id="panel-index">
+        <div id="indexContent">
+          <p>Assessment Index content goes here.</p>
+        </div>
+      </div>
+      <div class="panel" id="panel-relationships">
+        <div id="relationshipsContent">
+          <p>Safeguard Relationships content goes here.</p>
+        </div>
+      </div>
+      <div class="panel" id="panel-kql">
+        <div id="kqlContent">
+          <p>Defender KQL examples go here.</p>
+        </div>
+      </div>
+      <div class="panel" id="panel-grouppolicy">
+        <div id="grouppolicyContent">
+          <p>Group Policy Settings guidance goes here.</p>
+        </div>
+      </div>
+      <div class="panel" id="panel-recommend">
+        <div id="recommendContent">
+          <p>Implementation Recommendations content goes here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="important-documents" class="card">
+  <!-- Templates -->
+  <section id="templates" class="card">
+    <h2>Templates</h2>
+    <ul>
+      <li><a href="assets/Template1.docx" target="_blank">Template1.docx</a> — Description for Template1 document.</li>
+      <li><a href="assets/Template2.docx" target="_blank">Template2.docx</a> — Description for Template2 document.</li>
+      <li><a href="assets/SelfAssessmentWorkbook.xlsx" target="_blank">SelfAssessmentWorkbook.xlsx</a> — Description
+        for SelfAssessmentWorkbook.xlsx</li>
+    </ul>
+  </section>
 
-<h2>Important Documents</h2>
+  <!-- FAQ -->
+  <section id="faq" class="card">
+    <h2>FAQ</h2>
+    <details>
+      <summary>Question # 1</summary>
+      <p>Answer to question 1.</p>
+    </details>
+    <details>
+      <summary>Question # 2</summary>
+      <p>Answer to question 2.</p>
+    </details>
+    <details>
+      <summary>Question # 3</summary>
+      <p>Answer to question 3.</p>
+    </details>
+  </section>
 
-<div class="tabs">
+  <!-- Resources -->
+  <section id="resources" class="card">
+    <h2>Resources</h2>
+    <div class="grid two">
+      <div>
+        <h3>Docs</h3>
+        <ul>
+          <li><a href="https://example.org/handbook" target="_blank">Statewide Policy</a></li>
+          <li><a href="https://example.org/others" target="_blank">Others?</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Links</h3>
+        <ul>
+          <li><a href="https://example.org" target="_blank">Center for Internet Security Control Assessment Specifications</a></li>
+          <li><a href="https://kql.scripts" target="_blank">GitHub KQL</a></li>
+          <li><a href="https://example.org" target="_blank">Others?</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-<button class="tab active" data-tab="schedule">Assessment Schedule</button>
-<button class="tab" data-tab="request">Artifact Request</button>
-<button class="tab" data-tab="collector">Artifact Collector</button>
-<button class="tab" data-tab="index">Assessment Index</button>
-<button class="tab" data-tab="relationships">Safeguard Relationships</button>
-<button class="tab" data-tab="kql">Defender KQL</button>
-<button class="tab" data-tab="grouppolicy">Group Policy Settings</button>
-<button class="tab" data-tab="recommend">Implementation Recommendations</button>
+  <!-- Announcements -->
+  <section id="announcements" class="card">
+    <h2>Announcements</h2>
+    <ul>
+      <li><strong>2026-04-01</strong> — Initial launch of the Guidance Portal</li>
+      <li><strong>2026-04-15</strong> — Added Release Readiness checklist</li>
+    </ul>
+  </section>
 
-</div>
-
-<div class="tab-panels">
-
-<div class="panel active" id="panel-schedule">
-<div id="scheduleContent"></div>
-</div>
-
-<div class="panel" id="panel-request">
-<div id="artifactContent"></div>
-</div>
-
-<div class="panel" id="panel-collector">
-<div id="collectorContent"></div>
-</div>
-
-<div class="panel" id="panel-index">
-<div id="indexContent"></div>
-</div>
-
-<div class="panel" id="panel-relationships">
-<div id="relationshipsContent"></div>
-</div>
-
-<div class="panel" id="panel-kql">
-<div id="kqlContent"></div>
-</div>
-
-<div class="panel" id="panel-grouppolicy">
-<div id="grouppolicyContent"></div>
-</div>
-
-<div class="panel" id="panel-recommend">
-<div id="recommendContent"></div>
-</div>
-
-</div>
-
-</section>
-
-<section id="templates" class="card">
-<h2>Templates</h2>
-<ul id="templateList"></ul>
-</section>
-
-<section id="faq" class="card">
-<h2>FAQ</h2>
-<div id="faqList"></div>
-</section>
-
-<section id="resources" class="card">
-
-<h2>Resources</h2>
-
-<div class="grid two">
-
-<div>
-<h3>Docs</h3>
-<ul id="resourceDocs"></ul>
-</div>
-
-<div>
-<h3>Links</h3>
-<ul id="resourceLinks"></ul>
-</div>
-
-</div>
-
-</section>
-
-<section id="announcements" class="card">
-
-<h2>Announcements</h2>
-
-<ul id="announcementsList"></ul>
-
-</section>
+  <!-- Timeline -->
+  <section id="timeline" class="card">
+    <h2>Timeline</h2>
+    <ol>
+      <li><strong>Q2 2026</strong>: Add role-based views, Embed dashboards, Localization</li>
+      <li><strong>Q3 2026</strong>: Versioned guidance sets, Approval workflow</li>
+    </ol>
+  </section>
 
 </main>
 
 <footer class="footer">
-
-<img
-src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/cyber-command-seal.png"
-class="footer-seal"
-alt="State Cyber Command Seal"
->
-
-<p>Enterprise Information Services — State of Oregon</p>
-
-<p>Cybersecurity Services Guidance Portal</p>
-
-<small>
-© <span id="year"></span> Managed by the Cybersecurity Assessment Team
-</small>
-
+  <img src="https://raw.githubusercontent.com/zachary122687/Assessment-Guidance-Portal/main/cyber-command-seal.png"
+    class="footer-seal" alt="State Cyber Command Seal">
+  <p>Enterprise Information Services — State of Oregon</p>
+  <p>Cybersecurity Services Guidance Portal</p>
+  <small>© <span id="year"></span> Managed by the Cybersecurity Assessment Team</small>
 </footer>
 
-<script src="script.js"></script>
+<script>
+// Simple JS for theme toggle and current year
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("themeToggle");
+  const root = document.documentElement;
+  let theme = localStorage.getItem("theme") || "light";
+  root.dataset.theme = theme;
+  toggle.textContent = theme === "dark" ? "🌙" : "☀️";
+  toggle.addEventListener("click", () => {
+    theme = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = theme;
+    toggle.textContent = theme === "dark" ? "🌙" : "☀️";
+    localStorage.setItem("theme", theme);
+  });
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Tab functionality
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      const tabName = tab.dataset.tab;
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.querySelectorAll(".panel").forEach(panel => {
+        panel.classList.toggle("active", panel.id === "panel-" + tabName);
+      });
+    });
+  });
+
+  // Simple search
+  const searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("input", e => {
+    const query = e.target.value.toLowerCase();
+    document.querySelectorAll(".card").forEach(card => {
+      card.style.display = card.innerText.toLowerCase().includes(query) ? "" : "none";
+    });
+  });
+});
+</script>
 
 </body>
 </html>
