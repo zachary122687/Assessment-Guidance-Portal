@@ -24,8 +24,5 @@
     { "date": "2026-04-01", "text": "Initial launch of the Guidance Portal" },
     { "date": "2026-04-15", "text": "Added Release Readiness checklist" }
   ],
-  "roadmap": [
-    { "quarter": "Q2 2026", "items": ["Add role-based views", "Embed dashboards", "Localization"] },
-    { "quarter": "Q3 2026", "items": ["Versioned guidance sets", "Approval workflow"] }
-  ]
+
 }
