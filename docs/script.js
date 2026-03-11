@@ -1,62 +1,104 @@
-// ==========================
-// Theme Toggle
-// ==========================
-const root = document.documentElement;
-const toggle = document.getElementById("themeToggle");
+// ========================================
+// Portal Script
+// ========================================
 
-let currentTheme = localStorage.getItem("theme") || "light";
-root.dataset.theme = currentTheme;
+document.addEventListener("DOMContentLoaded", () => {
 
-if (toggle) {
-  toggle.textContent = currentTheme === "dark" ? "🌙" : "☀️";
-
-  toggle.addEventListener("click", () => {
-    const newTheme = root.dataset.theme === "dark" ? "light" : "dark";
-    root.dataset.theme = newTheme;
-    toggle.textContent = newTheme === "dark" ? "🌙" : "☀️";
-    localStorage.setItem("theme", newTheme);
-  });
-}
-
-// ==========================
-// Footer Year
-// ==========================
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-
-// ==========================
-// Search
-// ==========================
-const searchInput = document.getElementById("searchInput");
-let searchTimeout;
-
-searchInput?.addEventListener("input", (e) => {
-
-  clearTimeout(searchTimeout);
-
-  searchTimeout = setTimeout(() => {
-
-    const q = (e.target.value || "").toLowerCase();
-
-    document.querySelectorAll(".card").forEach(card => {
-
-      card.style.display =
-        card.innerText.toLowerCase().includes(q) ? "" : "none";
-
-    });
-
-  }, 200);
+  initTheme();
+  initFooterYear();
+  initSearch();
+  loadAssessmentSchedule();
+  initTabs();
 
 });
 
 
-// ==========================
-// Markdown Loader
-// ==========================
-async function loadMarkdown(url, containerId) {
+// ========================================
+// Theme Toggle
+// ========================================
 
-  const container = document.getElementById(containerId);
+function initTheme() {
+
+  const root = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
+
+  let theme = localStorage.getItem("theme") || "light";
+  root.dataset.theme = theme;
+
+  if (!toggle) return;
+
+  toggle.textContent = theme === "dark" ? "🌙" : "☀️";
+
+  toggle.addEventListener("click", () => {
+
+    theme = root.dataset.theme === "dark" ? "light" : "dark";
+
+    root.dataset.theme = theme;
+
+    toggle.textContent = theme === "dark" ? "🌙" : "☀️";
+
+    localStorage.setItem("theme", theme);
+
+  });
+
+}
+
+
+// ========================================
+// Footer Year
+// ========================================
+
+function initFooterYear() {
+
+  const yearEl = document.getElementById("year");
+
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+}
+
+
+// ========================================
+// Search
+// ========================================
+
+function initSearch() {
+
+  const input = document.getElementById("searchInput");
+
+  if (!input) return;
+
+  let timeout;
+
+  input.addEventListener("input", e => {
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+
+      const query = (e.target.value || "").toLowerCase();
+
+      document.querySelectorAll(".card").forEach(card => {
+
+        const visible = card.innerText.toLowerCase().includes(query);
+
+        card.style.display = visible ? "" : "none";
+
+      });
+
+    }, 200);
+
+  });
+
+}
+
+
+// ========================================
+// Load Markdown from GitHub
+// ========================================
+
+async function loadMarkdown(url, container) {
 
   if (!container) return;
 
@@ -66,32 +108,35 @@ async function loadMarkdown(url, containerId) {
 
   try {
 
-    const res = await fetch(url);
+    const response = await fetch(url);
 
-    if (!res.ok) {
-      throw new Error(`HTTP error ${res.status}`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
     }
 
-    const markdown = await res.text();
+    const markdown = await response.text();
 
     container.innerHTML = marked.parse(markdown);
 
     container.dataset.loaded = "true";
 
-  } catch (err) {
+  }
+  catch (err) {
 
     console.error("Markdown load failed:", err);
 
-    container.innerHTML = "<p style='color:red'>Failed to load document.</p>";
+    container.innerHTML =
+      "<p style='color:red'>Failed to load document.</p>";
 
   }
 
 }
 
 
-// ==========================
+// ========================================
 // Assessment Schedule
-// ==========================
+// ========================================
+
 function loadAssessmentSchedule() {
 
   const container = document.getElementById("scheduleContent");
@@ -102,91 +147,109 @@ function loadAssessmentSchedule() {
   "https://www.oregon.gov/eis/cyber-security-services/Documents/eis-css-assessment-schedule.pdf";
 
   container.innerHTML = `
-  <p>
-    <a href="${url}" target="_blank">
-      Open Cybersecurity Assessment Schedule (PDF)
-    </a>
-  </p>
+    <p>
+      <a href="${url}" target="_blank" rel="noopener">
+        Open Cybersecurity Assessment Schedule (PDF)
+      </a>
+    </p>
   `;
 
 }
 
-loadAssessmentSchedule();
 
+// ========================================
+// Markdown File Map
+// ========================================
 
-// ==========================
-// Markdown Tab Map
-// ==========================
-const markdownTabs = {
+const markdownFiles = {
 
-request: {
-url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md",
-container: "artifactContent"
-},
+  request: "Artifact-Request.md",
 
-collector: {
-url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Collector-Powershell-Scripts.md",
-container: "collectorContent"
-},
+  collector: "Artifact-Collector-Powershell-Scripts.md",
 
-index: {
-url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/CSS-Assessment-Index.md",
-container: "indexContent"
-},
+  index: "CSS-Assessment-Index.md",
 
-relationships: {
-url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/CSS-Assessment-Safeguard-Interrelationships.md",
-container: "relationshipsContent"
-},
+  relationships: "CSS-Assessment-Safeguard-Interrelationships.md",
 
-kql: {
-url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Defender-KQL.md",
-container: "kqlContent"
-},
+  kql: "Defender-KQL.md",
 
-grouppolicy: {
-url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Group-Policy-Settings.md",
-container: "grouppolicyContent"
-},
+  grouppolicy: "Group-Policy-Settings.md",
 
-recommend: {
-url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Implementation-Recommendations.md",
-container: "recommendContent"
-}
+  recommend: "Implementation-Recommendations.md"
 
 };
 
+const repoBase =
+"https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/";
 
-// ==========================
-// Tab System
-// ==========================
-document.querySelectorAll(".tab").forEach(tab => {
 
-  tab.addEventListener("click", async () => {
+// ========================================
+// Tabs
+// ========================================
 
-    const tabName = tab.dataset.tab;
+function initTabs() {
 
-    console.log("Tab:", tabName);
+  const tabs = document.querySelectorAll(".tab");
 
-    // activate tab button
-    document.querySelectorAll(".tab").forEach(t =>
-      t.classList.toggle("active", t === tab)
-    );
+  tabs.forEach(tab => {
 
-    // activate panel
-    document.querySelectorAll(".panel").forEach(p =>
-      p.classList.toggle("active", p.id === `panel-${tabName}`)
-    );
+    tab.addEventListener("click", async () => {
 
-    // load markdown if configured
-    const config = markdownTabs[tabName];
+      const tabName = tab.dataset.tab;
 
-    if (config) {
+      activateTab(tab);
 
-      await loadMarkdown(config.url, config.container);
+      activatePanel(tabName);
 
-    }
+      if (!markdownFiles[tabName]) return;
+
+      const panel = document.getElementById(`panel-${tabName}`);
+
+      if (!panel) return;
+
+      const container = panel.querySelector("div");
+
+      const url = repoBase + markdownFiles[tabName];
+
+      console.log("Loading markdown:", url);
+
+      await loadMarkdown(url, container);
+
+    });
 
   });
 
-});
+}
+
+
+// ========================================
+// Activate Tab
+// ========================================
+
+function activateTab(activeTab) {
+
+  document.querySelectorAll(".tab").forEach(tab => {
+
+    tab.classList.toggle("active", tab === activeTab);
+
+  });
+
+}
+
+
+// ========================================
+// Activate Panel
+// ========================================
+
+function activatePanel(name) {
+
+  document.querySelectorAll(".panel").forEach(panel => {
+
+    panel.classList.toggle(
+      "active",
+      panel.id === `panel-${name}`
+    );
+
+  });
+
+}
