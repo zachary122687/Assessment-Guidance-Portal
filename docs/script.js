@@ -98,47 +98,42 @@ loadAssessmentSchedule();
 // Tab Configuration
 // ==========================
 const markdownTabs = {
-  request: {
-    url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/refs/heads/main/Artifact-Request.md",
-    container: "artifactContent",
-    error: "Failed to load Artifact Request document."
-  },
 
-  collector: {
-    url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Collector-Powershell-Scripts.md",
-    container: "collectorContent",
-    error: "Failed to load Artifact Collector document."
-  },
+request: {
+url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Request.md",
+container: "artifactContent"
+},
 
-  index: {
-    url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/refs/heads/main/CSS-Assessment-Index.md",
-    container: "indexContent",
-    error: "Failed to load Assessment Index."
-  },
+collector: {
+url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Artifact-Collector-Powershell-Scripts.md",
+container: "collectorContent"
+},
 
-  relationships: {
-    url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/refs/heads/main/CSS-Assessment-Safeguard-Interrelationships.md",
-    container: "relationshipsContent",
-    error: "Failed to load Safeguard Relationships."
-  },
+index: {
+url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/CSS-Assessment-Index.md",
+container: "indexContent"
+},
 
-  kql: {
-    url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/refs/heads/main/Defender-KQL.md",
-    container: "kqlContent",
-    error: "Failed to load Defender KQL."
-  },
+relationships: {
+url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/CSS-Assessment-Safeguard-Interrelationships.md",
+container: "relationshipsContent"
+},
 
-  grouppolicy: {
-    url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/refs/heads/main/Group-Policy-Settings.md",
-    container: "grouppolicyContent",
-    error: "Failed to load Group Policy Settings."
-  },
+kql: {
+url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Defender-KQL.md",
+container: "kqlContent"
+},
 
-  recommend: {
-    url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/refs/heads/main/Implementation-Recommendations.md",
-    container: "recommendContent",
-    error: "Failed to load Implementation Recommendations."
-  }
+grouppolicy: {
+url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Group-Policy-Settings.md",
+container: "grouppolicyContent"
+},
+
+recommend: {
+url: "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/Implementation-Recommendations.md",
+container: "recommendContent"
+}
+
 };
 
 // ==========================
