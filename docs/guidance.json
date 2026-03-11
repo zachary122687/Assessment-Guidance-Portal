@@ -1,6 +1,6 @@
 {
   "templates": [
-    { "name": "Template1.docx", "href": "assets/Template1.docx", "desc": "Description for Template1 document." },
+    { "name": "Center for Internet Security Inventory Tracking Spreadsheet", "href": "https://www.cisecurity.org/insights/white-papers/cis-controls-inventory-tracking-spreadsheets", "desc": "Description for Template1 document." },
     { "name": "Template2.docx", "href": "assets/Template2.docx", "desc": "Description for Template2 document." },
     { "name": "SelfAssessmentWorkbook.xlsx", "href": "assets/SelfAssessmentWorkbook.xlsx", "desc": "Description for SelfAssessmentWorkbook.xlsx" }
   ],
