@@ -78,41 +78,13 @@
               target="_blank" rel="noopener">Open Cybersecurity Assessment Schedule (PDF)</a></p>
         </div>
       </div>
-      <div class="panel" id="panel-request">
-        <div id="artifactContent">
-          <p>Artifact Request guidance content goes here.</p>
-        </div>
-      </div>
-      <div class="panel" id="panel-collector">
-        <div id="collectorContent">
-          <p>Artifact Collector scripts guidance goes here.</p>
-        </div>
-      </div>
-      <div class="panel" id="panel-index">
-        <div id="indexContent">
-          <p>Assessment Index content goes here.</p>
-        </div>
-      </div>
-      <div class="panel" id="panel-relationships">
-        <div id="relationshipsContent">
-          <p>Safeguard Relationships content goes here.</p>
-        </div>
-      </div>
-      <div class="panel" id="panel-kql">
-        <div id="kqlContent">
-          <p>Defender KQL examples go here.</p>
-        </div>
-      </div>
-      <div class="panel" id="panel-grouppolicy">
-        <div id="grouppolicyContent">
-          <p>Group Policy Settings guidance goes here.</p>
-        </div>
-      </div>
-      <div class="panel" id="panel-recommend">
-        <div id="recommendContent">
-          <p>Implementation Recommendations content goes here.</p>
-        </div>
-      </div>
+      <div class="panel" id="panel-request"><div></div></div>
+      <div class="panel" id="panel-collector"><div></div></div>
+      <div class="panel" id="panel-index"><div></div></div>
+      <div class="panel" id="panel-relationships"><div></div></div>
+      <div class="panel" id="panel-kql"><div></div></div>
+      <div class="panel" id="panel-grouppolicy"><div></div></div>
+      <div class="panel" id="panel-recommend"><div></div></div>
     </div>
   </section>
 
@@ -130,18 +102,9 @@
   <!-- FAQ -->
   <section id="faq" class="card">
     <h2>FAQ</h2>
-    <details>
-      <summary>Question # 1</summary>
-      <p>Answer to question 1.</p>
-    </details>
-    <details>
-      <summary>Question # 2</summary>
-      <p>Answer to question 2.</p>
-    </details>
-    <details>
-      <summary>Question # 3</summary>
-      <p>Answer to question 3.</p>
-    </details>
+    <details><summary>Question # 1</summary><p>Answer to question 1.</p></details>
+    <details><summary>Question # 2</summary><p>Answer to question 2.</p></details>
+    <details><summary>Question # 3</summary><p>Answer to question 3.</p></details>
   </section>
 
   <!-- Resources -->
@@ -195,7 +158,7 @@
 </footer>
 
 <script>
-// Simple JS for theme toggle and current year
+// =================== Theme & Year ===================
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("themeToggle");
   const root = document.documentElement;
@@ -210,20 +173,52 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  // Tab functionality
+  // =================== Tabs & Markdown Loader ===================
+  const markdownFiles = {
+    request: "Artifact-Request.md",
+    collector: "Artifact-Collector-Powershell-Scripts.md",
+    index: "CSS-Assessment-Index.md",
+    relationships: "CSS-Assessment-Safeguard-Interrelationships.md",
+    kql: "Defender-KQL.md",
+    grouppolicy: "Group-Policy-Settings.md",
+    recommend: "Implementation-Recommendations.md"
+  };
+  const repoBase = "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/";
+
   const tabs = document.querySelectorAll(".tab");
   tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
+    tab.addEventListener("click", async () => {
       const tabName = tab.dataset.tab;
+
+      // Activate tab & panel
       tabs.forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
       document.querySelectorAll(".panel").forEach(panel => {
         panel.classList.toggle("active", panel.id === "panel-" + tabName);
       });
+
+      // Load Markdown dynamically if it exists
+      if (!markdownFiles[tabName]) return;
+      const panel = document.getElementById("panel-" + tabName);
+      if (!panel) return;
+      const container = panel.querySelector("div");
+      if (container.dataset.loaded === "true") return;
+
+      container.innerHTML = "Loading...";
+      try {
+        const res = await fetch(repoBase + markdownFiles[tabName]);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const md = await res.text();
+        container.innerHTML = marked.parse(md);
+        container.dataset.loaded = "true";
+      } catch (err) {
+        console.error("Markdown load failed:", err);
+        container.innerHTML = "<p style='color:red'>Failed to load document.</p>";
+      }
     });
   });
 
-  // Simple search
+  // =================== Search ===================
   const searchInput = document.getElementById("searchInput");
   searchInput.addEventListener("input", e => {
     const query = e.target.value.toLowerCase();
