@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSearch();
   loadAssessmentSchedule();
   initTabs();
+  loadGuidance();
 
 });
 
