@@ -1,5 +1,5 @@
 // ========================================
-// Portal Script - Static, No JSON Version
+// Portal Script - Static + Dynamic MD
 // ========================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -56,7 +56,28 @@ function initSearch() {
 }
 
 // ========================================
-// Load Assessment Schedule
+// Load Markdown from GitHub
+// ========================================
+async function loadMarkdown(url, container) {
+  if (!container) return;
+  if (container.dataset.loaded === "true") return;
+
+  container.innerHTML = "Loading...";
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const markdown = await response.text();
+    container.innerHTML = marked.parse(markdown);
+    container.dataset.loaded = "true";
+  } catch (err) {
+    console.error("Markdown load failed:", err);
+    container.innerHTML = "<p style='color:red'>Failed to load document.</p>";
+  }
+}
+
+// ========================================
+// Assessment Schedule
 // ========================================
 function loadAssessmentSchedule() {
   const container = document.getElementById("scheduleContent");
@@ -75,15 +96,39 @@ function loadAssessmentSchedule() {
 }
 
 // ========================================
-// Tabs
+// Tabs + Markdown
 // ========================================
+const markdownFiles = {
+  request: "Artifact-Request.md",
+  collector: "Artifact-Collector-Powershell-Scripts.md",
+  index: "CSS-Assessment-Index.md",
+  relationships: "CSS-Assessment-Safeguard-Interrelationships.md",
+  kql: "Defender-KQL.md",
+  grouppolicy: "Group-Policy-Settings.md",
+  recommend: "Implementation-Recommendations.md",
+};
+
+const repoBase =
+  "https://raw.githubusercontent.com/stateoforegon-eis-css/Oregon-CIS-Assessments/main/";
+
 function initTabs() {
   const tabs = document.querySelectorAll(".tab");
   tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
+    tab.addEventListener("click", async () => {
       const tabName = tab.dataset.tab;
       activateTab(tab);
       activatePanel(tabName);
+
+      if (!markdownFiles[tabName]) return;
+
+      const panel = document.getElementById(`panel-${tabName}`);
+      if (!panel) return;
+
+      const container = panel.querySelector("div");
+      const url = repoBase + markdownFiles[tabName];
+
+      console.log("Loading markdown:", url);
+      await loadMarkdown(url, container);
     });
   });
 }
@@ -101,7 +146,7 @@ function activatePanel(name) {
 }
 
 // ========================================
-// Load Static Guidance
+// Static Guidance Content
 // ========================================
 function loadGuidanceStatic() {
   // --- Templates ---
@@ -112,9 +157,7 @@ function loadGuidanceStatic() {
       { name: "Template2.docx", href: "assets/Template2.docx", desc: "Description for Template2 document." },
       { name: "SelfAssessmentWorkbook.xlsx", href: "assets/SelfAssessmentWorkbook.xlsx", desc: "Description for SelfAssessmentWorkbook.xlsx" },
     ];
-    templateList.innerHTML = templates
-      .map((t) => `<li><a href="${t.href}" target="_blank">${t.name}</a> — ${t.desc}</li>`)
-      .join("");
+    templateList.innerHTML = templates.map(t => `<li><a href="${t.href}" target="_blank">${t.name}</a> — ${t.desc}</li>`).join("");
   }
 
   // --- FAQ ---
@@ -125,9 +168,7 @@ function loadGuidanceStatic() {
       { q: "Question # 2", a: "Answer to question 2." },
       { q: "Question # 3", a: "Answer to question 3." },
     ];
-    faqList.innerHTML = faq
-      .map((f) => `<details><summary>${f.q}</summary><p>${f.a}</p></details>`)
-      .join("");
+    faqList.innerHTML = faq.map(f => `<details><summary>${f.q}</summary><p>${f.a}</p></details>`).join("");
   }
 
   // --- Resources ---
@@ -138,7 +179,7 @@ function loadGuidanceStatic() {
       { name: "Statewide Policy", href: "https://example.org/handbook" },
       { name: "Others?", href: "https://example.org/others" },
     ];
-    docs.innerHTML = resourcesDocs.map((r) => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join("");
+    docs.innerHTML = resourcesDocs.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join("");
   }
   if (links) {
     const resourcesLinks = [
@@ -146,7 +187,7 @@ function loadGuidanceStatic() {
       { name: "GitHub KQL", href: "https://kql.scripts" },
       { name: "Others?", href: "https://example.org" },
     ];
-    links.innerHTML = resourcesLinks.map((r) => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join("");
+    links.innerHTML = resourcesLinks.map(r => `<li><a href="${r.href}" target="_blank">${r.name}</a></li>`).join("");
   }
 
   // --- Announcements ---
@@ -156,7 +197,7 @@ function loadGuidanceStatic() {
       { date: "2026-04-01", text: "Initial launch of the Guidance Portal" },
       { date: "2026-04-15", text: "Added Release Readiness checklist" },
     ];
-    ann.innerHTML = announcements.map((a) => `<li><strong>${a.date}</strong> — ${a.text}</li>`).join("");
+    ann.innerHTML = announcements.map(a => `<li><strong>${a.date}</strong> — ${a.text}</li>`).join("");
   }
 
   // --- Timeline ---
@@ -166,6 +207,6 @@ function loadGuidanceStatic() {
       { quarter: "Q2 2026", items: ["Add role-based views", "Embed dashboards", "Localization"] },
       { quarter: "Q3 2026", items: ["Versioned guidance sets", "Approval workflow"] },
     ];
-    roadmap.innerHTML = timeline.map((r) => `<li><strong>${r.quarter}</strong>: ${r.items.join(", ")}</li>`).join("");
+    roadmap.innerHTML = timeline.map(r => `<li><strong>${r.quarter}</strong>: ${r.items.join(", ")}</li>`).join("");
   }
 }
