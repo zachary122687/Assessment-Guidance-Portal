@@ -253,3 +253,95 @@ function activatePanel(name) {
   });
 
 }
+// ========================================
+// Load Guidance JSON
+// ========================================
+
+async function loadGuidance() {
+
+  try {
+
+    const res = await fetch("guidance.json");
+
+    if (!res.ok) throw new Error(res.status);
+
+    const data = await res.json();
+
+    // Templates
+    const templateList = document.getElementById("templateList");
+
+    if (templateList && data.templates) {
+
+      templateList.innerHTML = data.templates.map(t => `
+        <li>
+          <a href="${t.href}" target="_blank">${t.name}</a>
+          — ${t.desc}
+        </li>
+      `).join("");
+
+    }
+
+    // FAQ
+    const faqList = document.getElementById("faqList");
+
+    if (faqList && data.faq) {
+
+      faqList.innerHTML = data.faq.map(q => `
+        <details>
+          <summary>${q.q}</summary>
+          <p>${q.a}</p>
+        </details>
+      `).join("");
+
+    }
+
+    // Resources
+    const docs = document.getElementById("resourceDocs");
+    const links = document.getElementById("resourceLinks");
+
+    if (docs && data.resources?.docs) {
+
+      docs.innerHTML = data.resources.docs.map(r => `
+        <li><a href="${r.href}" target="_blank">${r.name}</a></li>
+      `).join("");
+
+    }
+
+    if (links && data.resources?.links) {
+
+      links.innerHTML = data.resources.links.map(r => `
+        <li><a href="${r.href}" target="_blank">${r.name}</a></li>
+      `).join("");
+
+    }
+
+    // Announcements
+    const ann = document.getElementById("announcementsList");
+
+    if (ann && data.announcements) {
+
+      ann.innerHTML = data.announcements.map(a => `
+        <li><strong>${a.date}</strong> — ${a.text}</li>
+      `).join("");
+
+    }
+
+    // Roadmap / Timeline
+    const roadmap = document.getElementById("roadmapList");
+
+    if (roadmap && data.roadmap) {
+
+      roadmap.innerHTML = data.roadmap.map(r => `
+        <li><strong>${r.quarter}</strong>: ${r.items.join(", ")}</li>
+      `).join("");
+
+    }
+
+  }
+  catch (err) {
+
+    console.error("Failed to load guidance.json:", err);
+
+  }
+
+}
