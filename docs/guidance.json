@@ -1,22 +1,3 @@
-{
-  "importantDocuments": {
-    "schedule": [
-      "Current",
-      "Assessment",
-      "Schedule"
-    ],
-    "request": [
-      "Artifact Request Form",
-      "Submission Guidelines",
-      "Required Approvals"
-    ],
-    "collector": [
-      "Artifact Collector",
-      "Collection Procedures",
-      "Data Retention Rules"
-    ]
-  },
- 
   "templates": [
     { "name": "Template1.docx", "href": "assets/Template1.docx", "desc": "Description for Template1 document." },
     { "name": "Template2.docx", "href": "assets/Template2.docx", "desc": "Description for Template1 document." },
