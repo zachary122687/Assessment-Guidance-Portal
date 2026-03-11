@@ -1,6 +1,7 @@
+{
   "templates": [
     { "name": "Template1.docx", "href": "assets/Template1.docx", "desc": "Description for Template1 document." },
-    { "name": "Template2.docx", "href": "assets/Template2.docx", "desc": "Description for Template1 document." },
+    { "name": "Template2.docx", "href": "assets/Template2.docx", "desc": "Description for Template2 document." },
     { "name": "SelfAssessmentWorkbook.xlsx", "href": "assets/SelfAssessmentWorkbook.xlsx", "desc": "Description for SelfAssessmentWorkbook.xlsx" }
   ],
   "faq": [
@@ -11,7 +12,7 @@
   "resources": {
     "docs": [
       { "name": "Statewide Policy", "href": "https://example.org/handbook" },
-      { "name": " Others?", "href": "https://example.org/others" }
+      { "name": "Others?", "href": "https://example.org/others" }
     ],
     "links": [
       { "name": "Center for Internet Security Control Assessment Specifications", "href": "https://example.org" },
